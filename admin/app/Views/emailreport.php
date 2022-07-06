@@ -25,8 +25,8 @@
   </div>
 
 
-      <div style="width:50%; float:left;">
-      <p style=" text-align: right;"><b>Driver:</b> <?php  echo $runreport_details[0]['driver_number'];   ?> </p>
+  <div style="width:50%; float:left;">
+      <p style=" text-align: right;">&nbsp;</p>
   </div>
 
   <div style="width:50%; float:left;">

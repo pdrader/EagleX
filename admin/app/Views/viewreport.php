@@ -32,7 +32,7 @@
 
   <div class="col-6">
  
-      <p class="text-end"><b>Driver:</b> <?php  echo $runreport_details[0]['driver_number'];   ?> </p>
+      <p class="text-end"></p>
   </div> 
 
   <div class="col-6">
