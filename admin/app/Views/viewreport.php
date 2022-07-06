@@ -303,7 +303,7 @@ echo number_format($total_payment,2);
 
   <a href="javascript:void(0)" class="btn btn-success default-btn " id="print-report">Print</a>
    
-  <a href="<?php  echo base_url('driver/report/send/'.$driver_id.'/'.strtotime($check_date).'/'.$truck_id) ?>" class="btn btn-success default-btn ">Resend Report</a>
+  <a href="<?php  echo base_url('driver/report/send/'.$driver_id.'/'.strtotime($check_date).'/'.$truck_id) ?>" class="btn btn-success default-btn ">Resend Email</a>
 </a>
 
 </div>

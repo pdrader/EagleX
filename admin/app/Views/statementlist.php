@@ -34,19 +34,19 @@ foreach($statement_details as $statement_detail){
 
       <td>
       <?php if(session()->get('type')=='Admin') {?>
-        <a  href="<?php echo base_url('admin/run/'.$statement_detail['driver_id'].'/'.strtotime($statement_detail['check_date']).'/'.$statement_detail['truck_id']) ?>" class="btn btn-success default-btn">RUN</a>
+        <a  href="<?php echo base_url('admin/run/'.$statement_detail['driver_id'].'/'.strtotime($statement_detail['check_date']).'/'.$statement_detail['truck_id']) ?>" class="btn btn-success default-btn">Run</a>
 <?php } ?>
 
 <?php if($statement_detail['status']=='Approved') {?>
   <?php if(session()->get('type')=='Admin') {?>
-        <a  href="<?php echo base_url('admin/view/'.$statement_detail['driver_id'].'/'.strtotime($statement_detail['check_date']).'/'.$statement_detail['truck_id']) ?>" class="btn btn-success default-btn">Pay Statement</a>
+        <a  href="<?php echo base_url('admin/view/'.$statement_detail['driver_id'].'/'.strtotime($statement_detail['check_date']).'/'.$statement_detail['truck_id']) ?>" class="btn btn-success default-btn">View</a>
   <?php } else { ?>
-    <a  href="<?php echo base_url('driver/report/'.$page_no) ?>" class="btn btn-success default-btn">View Statement</a>
+    <a  href="<?php echo base_url('driver/report/'.$page_no) ?>" class="btn btn-success default-btn">View</a>
     <?php
   }
   
         }else { ?>
-      <a    class="btn btn-success default-btn disabled">Pay Statement</a>
+      <a    class="btn btn-success default-btn disabled">View</a>
       <?php
 }
 

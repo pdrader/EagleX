@@ -30,12 +30,12 @@
           <a class="nav-link" href="<?= site_url('admin/statement-list'); ?>">Statements</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?= site_url('admin/payment'); ?>">Payment</a>
+          <a class="nav-link" href="<?= site_url('admin/payment'); ?>">Upload</a>
         </li>
       
 <?php }elseif(session()->get('type')=='Driver') { ?>
   <li class="nav-item">
-          <a class="nav-link" href="<?= site_url('driver/statement-list'); ?>">Statements List</a>
+          <a class="nav-link" href="<?= site_url('driver/statement-list'); ?>">Statements</a>
         </li>
   
 <?php 
