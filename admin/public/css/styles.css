@@ -1,0 +1,136 @@
+.login-main
+{
+	background: #1e4356;
+}
+.default-btn,.default-btn:hover, .default-btn.disabled
+{
+	background: #0d2735;
+	border:#0d2735;
+}
+.login-logo img
+{
+	width:200px;
+	
+}
+.login-logo
+{
+	text-align:center;
+	margin:50px 0 20px 0;
+	
+	
+}
+#site-header
+{
+	background: #1e4356;
+}
+.
+#site-header .navbar
+{
+padding: 0px 0;
+}
+#site-header #navbarNav
+{
+	 display: flex;
+  align-items: center;
+  justify-content: right;
+}
+#site-header .navbar-nav .nav-link 
+{
+color: #fff;
+}
+.middle-content
+{
+	padding: 15px 0px;
+	/*min-height: 600px;*/
+}
+
+#site-footer
+{
+	background: #1e4356;
+}
+
+#site-footer .copyright
+{
+	color:#ffffff;
+	
+	padding: 10px 0px;
+}
+.payment-20-text
+{
+	float:left;
+	width:40%;
+	line-height: 32px;
+	
+}
+.payment-20-input
+{
+	float:left;
+	width:60%;
+	
+}
+
+.run-report-table
+{
+	font-size:14px;
+	
+}
+.run-report-table input
+{
+	font-size:14px;
+	padding: 3px 3px;
+	text-align:right;
+}
+.run-report-table .only-decimal
+{
+		font-size:14px;
+		text-align:right;
+		
+}
+.text-error
+{
+	border-color:red;
+	color:red;
+}
+.error-message
+{
+	color:red;
+}
+.bottom-pagination 
+{
+	margin-bottom:20px;
+	margin-top: 10px;
+	
+}
+.bottom-pagination  a
+{
+    font-size: 25px;
+    width: 30px;
+    padding: 1px 30px;
+}
+ 
+.pagination li a.page-link
+{
+	color: #0d2735;
+    
+ 
+}   
+
+.pagination li.page-item.active a
+{
+	background: #0d2735;
+	border-color:#0d2735 ;
+}
+
+.pagination
+{
+	align-items: center;
+	justify-content: center;
+}  
+
+@media print
+{    
+    a
+    {
+        display: none !important;
+    }
+}

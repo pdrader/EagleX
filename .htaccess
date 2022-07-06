@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^(www\.)?eaglex\.llc$ [NC]
+RewriteRule ^(.*)$ https://eaglex.llc/$1 [L,R=301]
+</IfModule>
+#Protect Directory
+<Files admin.html>
+AuthType Basic
+AuthName "Protected Site"
+AuthUserFile /home/gvnvf61ftx5b/public_html/.htpasswd
+require valid-user
+</Files>
