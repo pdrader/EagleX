@@ -174,7 +174,7 @@ foreach($runreport_details as $runreport_detail){
 </tr>
 <tr>
 <td colspan="5" rowspan="2" class="">
-
+Comment: 
   
  <?php echo trim($advance_details['advance_comment']) ?> 
   
@@ -271,7 +271,7 @@ $<?php
 
 <tr>
 <td colspan="5" rowspan="2"> 
-  
+  Comment: 
  <?php echo trim($advance_details['total_comment']) ?>
 </td>
  
