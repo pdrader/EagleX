@@ -31,8 +31,9 @@
                         <input type="password" name="password" placeholder="Password" class="form-control" >
                     </div>
                     
-                    <div class="d-grid">
+                    <div class="d-grid gap-2">
                          <button type="submit" class="btn btn-success default-btn">Log In</button>
+                         <a href="https://eaglex.llc" class="btn btn-secondary">Back</a>
                     </div>     
                 </form>
             </div>
