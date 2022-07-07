@@ -227,7 +227,7 @@ class AdminController extends Controller
                 $j++;
             }
 
-            $session->setFlashdata('success', 'Pro Successfully Imported.');
+            $session->setFlashdata('success', 'Panther data uploaded successfully.');
             $session->setFlashdata('errors', $errors);
             $session->setFlashdata('warings', $warings);
             return redirect()->back();
@@ -304,7 +304,7 @@ class AdminController extends Controller
 
 
         if (empty($runreport_details)) {
-            $session->setFlashdata('error', 'Something is missing. Please try again later.');
+            $session->setFlashdata('error', 'Error in runreport() around line 307. Tell IT dept.');
 
 
             return redirect()->route('admin/statement-list');
@@ -437,10 +437,10 @@ class AdminController extends Controller
           
             if (isset($recalculate_approved)) {
 
-                $session->setFlashdata('success', 'Settlement Statement Recalculate & Approved  Successfully.');
+                $session->setFlashdata('success', 'Settlement Statement Recalculated & Approved.');
             } else {
 
-                $session->setFlashdata('success', 'Settlement Statement Update Successfully.');
+                $session->setFlashdata('success', 'Settlement Statement Updated Successfully.');
             }
 
             return redirect()->back();
@@ -470,7 +470,7 @@ class AdminController extends Controller
 
 
     if (empty($runreport_details)) {
-        $session->setFlashdata('error', 'Something is missing. Please try again later.');
+        $session->setFlashdata('error', 'Error in AdminController around Line 473. Tell IT dept.');
 
 
         return redirect()->back();
@@ -504,7 +504,7 @@ class AdminController extends Controller
         $proModel = new ProModel();
 
         $proModel->where('id', $pro_id)->delete();
-    $session->setFlashdata('error', 'Payment delete successfully.');
+    $session->setFlashdata('error', 'Payment deleted successfully.');
 
 
     return redirect()->back();
@@ -521,7 +521,7 @@ public function deleterunreport($driver_id, $check_date, $truck_id)
   
     $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
 
-$session->setFlashdata('error', 'Statement delete successfully.');
+$session->setFlashdata('error', 'Statement deleted successfully.');
 
 
 return redirect()->back();
