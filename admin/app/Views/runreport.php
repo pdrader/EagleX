@@ -57,7 +57,7 @@
     <tr>
      
       <th scope="col" width="120px">Pro #</th>
-      <th scope="col" width="75px" >RPM</th>
+      <th scope="col" width="75px">RPM</th>
       <th scope="col" width="75px">Miles</th>
       <th scope="col" width="75px">Factorial</th>
       <th scope="col">Detention</th>
@@ -66,11 +66,9 @@
       <th scope="col" width="50px">Handload</th>
       <th scope="col" width="50px">Deadhead</th>
       <th scope="col">Bonus</th>
-      <th scope="col"  width="75px">Pro Total</th>
-      <th scope="col" width="75px"> Action</th>
+      <th scope="col" width="75px">Pro Total</th>
+      <th scope="col" width="75px">Action</th>
   
-
-
     </tr>
   </thead>
   <tbody>
@@ -79,7 +77,7 @@ $payments_subtotal=[];
 $advance_details['driver_advance']=isset($advance_details['driver_advance'])?$advance_details['driver_advance']:'0.00';
 $advance_details['misc']=isset($advance_details['misc'])?$advance_details['misc']:'0.00';
 $advance_details['advance_repayment']=isset($advance_details['advance_repayment'])?$advance_details['advance_repayment']:'0.00';
-$advance_details['occupational_insurance']=isset($advance_details['occupational_insurance'])?$advance_details['occupational_insurance']:'0.00';
+$advance_details['occupational_insurance']=isset($advance_details['occupational_insurance'])?$advance_details['occupational_insurance']:'27.99';
 
 $advance_details['advance_comment']=isset($advance_details['advance_comment'])?$advance_details['advance_comment']:'';
 $advance_details['total_comment']=isset($advance_details['total_comment'])?$advance_details['total_comment']:'';
