@@ -9,6 +9,8 @@ use App\Models\ProModel;
 use App\Models\TruckModel; 
 use App\Models\AdvanceModel;
 
+
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -234,7 +236,13 @@ class AdminController extends Controller
 
             $session->setFlashdata('error', $e->getMessage());
             return redirect()->back();
-        }}
+        }
+    }
+
+
+ 
+
+
 
     public function uploadFile($path, $image)
     {
@@ -252,6 +260,11 @@ class AdminController extends Controller
     {
         return strtolower(trim(preg_replace('~[^0-9a-z]+~i', '_', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '_'));
     }
+
+
+
+
+
 
     public  function statementList()
     {
@@ -271,6 +284,7 @@ class AdminController extends Controller
 
         echo view('includes/template', $data);
     }
+
 
     public  function runreport($driver_id, $check_date, $truck_id)
     {
@@ -438,8 +452,8 @@ class AdminController extends Controller
         }
     }
 
-    public function viewreport($driver_id, $check_date, $truck_id)
-    {
+  public function viewreport($driver_id, $check_date, $truck_id)
+  {
     $proModel = new ProModel();
      
     $advanceModel = new AdvanceModel();
@@ -449,14 +463,14 @@ class AdminController extends Controller
     $user = $userModel->find($driver_id);
     $check_date = date('Y-m-d',  $check_date);
     $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
-
+    
 
     $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
 
 
 
     if (empty($runreport_details)) {
-        $session->setFlashdata('error', 'Error in viewreport() around Line 473. Tell IT dept.');
+        $session->setFlashdata('error', 'Error in AdminController around Line 473. Tell IT dept.');
 
 
         return redirect()->back();
@@ -468,7 +482,7 @@ class AdminController extends Controller
     $data['main_content']    = 'viewreport';
     $data['runreport_details']    =  $runreport_details;
 
-
+    
 
     $data['advance_details']    =  $advance_details;
 
@@ -481,12 +495,12 @@ class AdminController extends Controller
 
     echo view('includes/template', $data);
 
-}  
+  }  
 
-    public function prodelete($pro_id)
-    {
+  public function prodelete($pro_id)
+  {
     $session = session();
-
+ 
         $proModel = new ProModel();
 
         $proModel->where('id', $pro_id)->delete();
@@ -494,22 +508,24 @@ class AdminController extends Controller
 
 
     return redirect()->back();
+  }
+
+public function deleterunreport($driver_id, $check_date, $truck_id)
+{
+    $session = session();
+ 
+    $proModel = new ProModel();
+    $advanceModel = new AdvanceModel();
+    $check_date = date('Y-m-d',  $check_date);
+    $proModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
+  
+    $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
+
+$session->setFlashdata('error', 'Statement deleted successfully.');
+
+
+return redirect()->back();
 }
 
-    public function deleterunreport($driver_id, $check_date, $truck_id)
-    {
-        $session = session();
-     
-        $proModel = new ProModel();
-        $advanceModel = new AdvanceModel();
-        $check_date = date('Y-m-d',  $check_date);
-        $proModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
-      
-        $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
 
-    $session->setFlashdata('error', 'Statement deleted successfully.');
-
-
-    return redirect()->back();
-}
 }

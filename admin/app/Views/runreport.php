@@ -57,7 +57,7 @@
     <tr>
      
       <th scope="col" width="120px">Pro #</th>
-      <th scope="col" width="75px">RPM</th>
+      <th scope="col" width="75px" >RPM</th>
       <th scope="col" width="75px">Miles</th>
       <th scope="col" width="75px">Factorial</th>
       <th scope="col">Detention</th>
@@ -66,9 +66,11 @@
       <th scope="col" width="50px">Handload</th>
       <th scope="col" width="50px">Deadhead</th>
       <th scope="col">Bonus</th>
-      <th scope="col" width="75px">Pro Total</th>
-      <th scope="col" width="75px">Action</th>
+      <th scope="col"  width="75px">Pro Total</th>
+      <th scope="col" width="75px"> Action</th>
   
+
+
     </tr>
   </thead>
   <tbody>
