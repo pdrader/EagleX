@@ -97,12 +97,13 @@ class PlancakeEmailParser {
                 break;
             }
             
+            //consider removing htmlspecialchars?
             if ($this->isLineStartingWithPrintableChar($line)) // start of new header
             {
                 preg_match('/([^:]+): ?(.*)$/', $line, $matches);
                 $newHeader = strtolower($matches[1]);
                 $value = $matches[2];
-                $this->rawFields[$newHeader] = $value;
+                $this->rawFields[$newHeader] = htmlspecialchars($value);
                 $currentHeader = $newHeader;
             }
             else // more lines related to the current header
@@ -162,10 +163,21 @@ class PlancakeEmailParser {
      */
     public function getTo()
     {
-        if ( (!isset($this->rawFields['to'])) || (!count($this->rawFields['to'])))
+        //var_dump($this);
+        //var_dump($rawFields);
+        var_dump($this->rawFields['to']);
+
+        //if (!is_array($this->rawFields['to'])){
+        //    return $this->rawFields['to'];
+        //}
+
+        //if TO is empty, throw e
+        if (!isset($this->rawFields['to']))
         {
             throw new Exception("Couldn't find the recipients of the email");
         }
+        
+        //return array
         return explode(',', $this->rawFields['to']);
     }
 	
@@ -287,6 +299,7 @@ class PlancakeEmailParser {
             }
         }
 
+        //var_dump($body);
         return $body;
     }
 
