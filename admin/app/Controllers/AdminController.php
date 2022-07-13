@@ -14,6 +14,8 @@ use App\Models\AdvanceModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+
+
 class AdminController extends Controller
 {
     public function payment()
@@ -288,6 +290,8 @@ class AdminController extends Controller
 
     public  function runreport($driver_id, $check_date, $truck_id)
     {
+
+
         $session = session();
         $proModel = new ProModel();
          
@@ -452,6 +456,7 @@ class AdminController extends Controller
         }
     }
 
+<<<<<<< Updated upstream
   public function viewreport($driver_id, $check_date, $truck_id)
   {
     $proModel = new ProModel();
@@ -464,51 +469,84 @@ class AdminController extends Controller
     $check_date = date('Y-m-d',  $check_date);
     $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
     
+=======
+    public function viewreport($driver_id, $check_date, $truck_id)
+    {
+        $proModel = new ProModel();
+         
+        $advanceModel = new AdvanceModel();
+        $userModel = new UserModel();
+        $session = session();
 
-    $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
+        $user = $userModel->find($driver_id);
+        $check_date = date('Y-m-d',  $check_date);
+        $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
+
+>>>>>>> Stashed changes
+
+        $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
 
 
 
+<<<<<<< Updated upstream
     if (empty($runreport_details)) {
         $session->setFlashdata('error', 'Error in AdminController around Line 473. Tell IT dept.');
+=======
+        if (empty($runreport_details)) {
+            $session->setFlashdata('error', 'Error in viewreport() around Line 473. Tell IT dept.');
+>>>>>>> Stashed changes
 
 
-        return redirect()->back();
-    }
+            return redirect()->back();
+        }
 
-    $data = [];
-    $data['title']         = 'Pay Statement';
+        $data = [];
+        $data['title']         = 'Pay Statement';
 
-    $data['main_content']    = 'viewreport';
-    $data['runreport_details']    =  $runreport_details;
+        $data['main_content']    = 'viewreport';
+        $data['runreport_details']    =  $runreport_details;
 
     
 
-    $data['advance_details']    =  $advance_details;
+        $data['advance_details']    =  $advance_details;
 
 
-    $data['driver_name']=ucwords($user['name']);
-    $data['driver_email']=($user['email']);
-    $data['driver_id']    =  $driver_id;
-    $data['check_date']    =  $check_date;
-    $data['truck_id']    =  $truck_id;
+        $data['driver_name']=ucwords($user['name']);
+        $data['driver_email']=($user['email']);
+        $data['driver_id']    =  $driver_id;
+        $data['check_date']    =  $check_date;
+        $data['truck_id']    =  $truck_id;
 
-    echo view('includes/template', $data);
+        echo view('includes/template', $data);
 
+<<<<<<< Updated upstream
   }  
 
   public function prodelete($pro_id)
   {
     $session = session();
  
+=======
+    }  
+
+    public function prodelete($pro_id)
+    {
+        $session = session();
+
+>>>>>>> Stashed changes
         $proModel = new ProModel();
 
         $proModel->where('id', $pro_id)->delete();
-    $session->setFlashdata('error', 'Payment deleted successfully.');
 
+        $session->setFlashdata('error', 'Payment deleted successfully.');
 
+<<<<<<< Updated upstream
     return redirect()->back();
   }
+=======
+        return redirect()->back();
+    }
+>>>>>>> Stashed changes
 
 public function deleterunreport($driver_id, $check_date, $truck_id)
 {
@@ -521,6 +559,7 @@ public function deleterunreport($driver_id, $check_date, $truck_id)
   
     $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
 
+<<<<<<< Updated upstream
 $session->setFlashdata('error', 'Statement deleted successfully.');
 
 
@@ -528,4 +567,11 @@ return redirect()->back();
 }
 
 
+=======
+        $session->setFlashdata('error', 'Statement deleted successfully.');
+
+
+        return redirect()->back();
+    }
+>>>>>>> Stashed changes
 }
