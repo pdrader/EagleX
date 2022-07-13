@@ -1,0 +1,191 @@
+Return-Path: <caleb.rader@gmail.com>
+Received: from p3plzcpnl489476.prod.phx3.secureserver.net
+	by p3plzcpnl489476.prod.phx3.secureserver.net with LMTP
+	id j6K+JwG3zWLijDYAlcsfXg
+	(envelope-from <caleb.rader@gmail.com>); Tue, 12 Jul 2022 11:01:37 -0700
+Return-path: <caleb.rader@gmail.com>
+Envelope-to: caleb@eaglex.llc
+Delivery-date: Tue, 12 Jul 2022 11:01:37 -0700
+Received: from mail-yb1-f170.google.com ([209.85.219.170]:40898)
+	by p3plzcpnl489476.prod.phx3.secureserver.net with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.94.2)
+	(envelope-from <caleb.rader@gmail.com>)
+	id 1oBKCW-00EzPX-RD
+	for caleb@eaglex.llc; Tue, 12 Jul 2022 11:01:37 -0700
+Received: by mail-yb1-f170.google.com with SMTP id p129so15270241yba.7
+        for <caleb@eaglex.llc>; Tue, 12 Jul 2022 11:01:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+        bh=DLin3XxSFCXYaBuHCWK18FO5jm7tFOLnpMDT4y+yonE=;
+        b=AaE7uHwIR6Smn/MRrGl7ZXQnIU3KrSy71ZKoLrU3JXp4+lyuKK8KuSqIhnnAPNc1Jn
+         wpVxGw41H/3VJzwqNUqjUZX1harABHG3iPwP51W2hJulggATZuillV9ZhXb+vhZZnckT
+         iMoFKZicmHlZ+AFexZwbuVVm8k8/uguNf4+aBTYEa9jhLeoubtM1kktQCB6tq7Y+Hoe+
+         UO5j0ILENTSd2leddgHeUY0rqjXXoVWeaKAVUad74JSEc11Sc1O4IU8k+XVhkZTdaH/U
+         e4Ll55b8TKcoDvo7oFeNvFtLfKTyjyXIipzBBEV4IhIUtBSh2rOVirq/DsMVO+7rXuGN
+         cxEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to;
+        bh=DLin3XxSFCXYaBuHCWK18FO5jm7tFOLnpMDT4y+yonE=;
+        b=qdziOWnJXMkMKO2Xb6ZbKNw2ZmOkMneSamlvebTdqMviJs2AT5zUh+BtT3+mNgGnWX
+         5Pfc3L+utwpfDAeK5FNNTEEEd4Uc4idUVCbyGvOdiVwd5YlYpfJt74NZXiAFoxZg1iGz
+         LEu4MGRoPZH7z6BzZzieFJfcELvDPNjFlfTBQBdl11JUNoKQzKzLwZdrzon/quWlSIZN
+         8kZl11kEmcKUPGUTHA5Kv0dzR2DWEDUNftaQJZskcH4aJjqD7C548iuAy6jLpGOfZf1j
+         y8zmjQ6pYs/BiFlHXPufMeGCu2RlMnoem/KpNkmBqI9PdOmNyhmBwhgzbFg+KEnZuofs
+         k9Jw==
+X-Gm-Message-State: AJIora/npX3t6rNksyhp6R1+ku42yUdjQx1qYIrWXtv034yGD1d3V0Pj
+	FQC/T/kHezOSQX+5vRuFN5ysQ3ZY9lmsvfADjc0Fui5E
+X-Google-Smtp-Source: AGRyM1v2BkZdexf3o3n8DrxeApCdm9NG6BBiJ7Y1z0ar5n8dSDJkKLb7XvqYzuOIPUnaWKjhr83JbPD6qHRzEoldQpw=
+X-Received: by 2002:a25:76cd:0:b0:66e:c634:1047 with SMTP id
+ r196-20020a2576cd000000b0066ec6341047mr24263740ybc.241.1657648855644; Tue, 12
+ Jul 2022 11:00:55 -0700 (PDT)
+MIME-Version: 1.0
+References: <202206241609.25OG9Gup42336692@sapintrans03a.panther.com> <1526285591.1192.1657303752160@mail.yahoo.com>
+In-Reply-To: <1526285591.1192.1657303752160@mail.yahoo.com>
+From: Caleb Rader <caleb.rader@gmail.com>
+Date: Tue, 12 Jul 2022 13:00:46 -0500
+Message-ID: <CAHQ=SN5GK9N=oYG-rBYBqmYLdJvPBiHijRbBaNDdJzQVghPoFg@mail.gmail.com>
+Subject: Re: Fw: Receipt for Panther PRO 20220667574 and Truck 33739
+To: caleb@eaglex.llc
+Content-Type: multipart/alternative; boundary="00000000000033fd7305e39f73de"
+X-Spam-Status: No, score=0.3
+X-Spam-Score: 3
+X-Spam-Bar: /
+X-Ham-Report: Spam detection software, running on the system "p3plzcpnl489476.prod.phx3.secureserver.net",
+ has NOT identified this incoming email as spam.  The original
+ message has been attached to this so you can view it or label
+ similar future email.  If you have any questions, see
+ root\@localhost for details.
+ Content preview:  On Fri, Jul 8, 2022 at 1:09 PM mike wasdovich wrote: > > >
+    ----- Forwarded Message ----- > *From:* "panthertruckreceipts@arcb.com" >
+    *To:* "WAZDRIVER@YAHOO.COM" > *Sent:* Friday, June 24, 2022 at 12:09:18 PM
+    EDT > *Subject:* Receipt for Panther PRO [...] 
+ Content analysis details:   (0.3 points, 5.0 required)
+  pts rule name              description
+ ---- ---------------------- --------------------------------------------------
+ -0.0 SPF_PASS               SPF: sender matches SPF record
+  0.0 FREEMAIL_FROM          Sender email is commonly abused enduser mail
+                             provider
+                             [caleb.rader[at]gmail.com]
+  0.0 HTML_MESSAGE           BODY: HTML included in message
+ -0.1 DKIM_VALID_EF          Message has a valid DKIM or DK signature from
+                             envelope-from domain
+  0.1 DKIM_SIGNED            Message has a DKIM or DK signature, not necessarily
+                             valid
+ -0.1 DKIM_VALID_AU          Message has a valid DKIM or DK signature from
+                             author's domain
+ -0.1 DKIM_VALID             Message has at least one valid DKIM or DK signature
+  0.5 KAM_NUMSUBJECT         Subject ends in numbers excluding current years
+X-Spam-Flag: NO
+
+--00000000000033fd7305e39f73de
+Content-Type: text/plain; charset="UTF-8"
+
+On Fri, Jul 8, 2022 at 1:09 PM mike wasdovich <wazdriver@yahoo.com> wrote:
+
+>
+>
+> ----- Forwarded Message -----
+> *From:* "panthertruckreceipts@arcb.com" <panthertruckreceipts@arcb.com>
+> *To:* "WAZDRIVER@YAHOO.COM" <WAZDRIVER@YAHOO.COM>
+> *Sent:* Friday, June 24, 2022 at 12:09:18 PM EDT
+> *Subject:* Receipt for Panther PRO 20220667574 and Truck 33739
+>
+> You have accepted the following rates
+> in relation to this PRO. As an
+> independent contractor, it is your
+> responsibility to ensure these terms
+> are in accordance with your contract
+> and agreed upon terms with dispatch.
+> (Estimated terms are subject to change
+> based on paying customer contract.)
+> Any negotiated rate above the
+> contracted rate is dependent upon 100%
+> on-time performance and is subject to
+> admendment or adjustment.
+>
+> ESTIMATED MILES: 1793
+> RPM: 1.40
+> OR FLAT RATE: 0.00
+> ESTIMATED FSC RPM: 0.49
+> ESTIMATED DH MILES: 135
+> DH NUMBER: 24260
+> DH RPM: 1.40
+> OR DH FLAT: 0.00
+> DISP: QC      06-24-22 12:09
+> LOAD ACCEPTED AT 06-24-22 12:09
+> BY TRUCK 33739 FOR OWNER 51120
+> ----------------------------------------
+> TOLLS: 14.75
+> BONUS: 200.00
+> TOLL REIMBURSEMENT: Y
+> DISP: QC 06-24-22 12:09
+>
+> Load may require a swap based on
+> meeting customer needs and to ensure
+> compliance with FMCSA regulations.
+> Rates will be changed accordingly.
+> Please contact dispatch with any
+> discrepancies. Please be safe.
+>
+
+--00000000000033fd7305e39f73de
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jul 8, 2022 at 1:09 PM mike w=
+asdovich &lt;<a href=3D"mailto:wazdriver@yahoo.com">wazdriver@yahoo.com</a>=
+&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px =
+0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div=
+><div style=3D"font-family:&quot;Helvetica Neue&quot;,Helvetica,Arial,sans-=
+serif;font-size:13px"><div></div>
+        <div><br></div><div><br></div>
+       =20
+        </div><div id=3D"gmail-m_189762855353641350ydpc0283da8yahoo_quoted_=
+7616996245">
+            <div style=3D"font-family:&quot;Helvetica Neue&quot;,Helvetica,=
+Arial,sans-serif;font-size:13px;color:rgb(38,40,42)">
+                <div>----- Forwarded Message -----</div>
+                <div><b>From:</b> &quot;<a href=3D"mailto:panthertruckrecei=
+pts@arcb.com" target=3D"_blank">panthertruckreceipts@arcb.com</a>&quot; &lt=
+;<a href=3D"mailto:panthertruckreceipts@arcb.com" target=3D"_blank">panther=
+truckreceipts@arcb.com</a>&gt;</div><div><b>To:</b> &quot;<a href=3D"mailto=
+:WAZDRIVER@YAHOO.COM" target=3D"_blank">WAZDRIVER@YAHOO.COM</a>&quot; &lt;<=
+a href=3D"mailto:WAZDRIVER@YAHOO.COM" target=3D"_blank">WAZDRIVER@YAHOO.COM=
+</a>&gt;</div><div><b>Sent:</b> Friday, June 24, 2022 at 12:09:18 PM EDT</d=
+iv><div><b>Subject:</b> Receipt for Panther PRO 20220667574 and Truck 33739=
+</div><div><br></div>
+                <div><div dir=3D"ltr">You have accepted the following rates=
+<br></div><div dir=3D"ltr">in relation to this PRO. As an<br></div><div dir=
+=3D"ltr">independent contractor, it is your<br></div><div dir=3D"ltr">respo=
+nsibility to ensure these terms<br></div><div dir=3D"ltr">are in accordance=
+ with your contract<br></div><div dir=3D"ltr">and agreed upon terms with di=
+spatch.<br></div><div dir=3D"ltr">(Estimated terms are subject to change<br=
+></div><div dir=3D"ltr">based on paying customer contract.)<br></div><div d=
+ir=3D"ltr">Any negotiated rate above the<br></div><div dir=3D"ltr">contract=
+ed rate is dependent upon 100%<br></div><div dir=3D"ltr">on-time performanc=
+e and is subject to<br></div><div dir=3D"ltr">admendment or adjustment.<br>=
+</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">ESTIMATED MILES: 1793<br>=
+</div><div dir=3D"ltr">RPM: 1.40<br></div><div dir=3D"ltr">OR FLAT RATE: 0.=
+00<br></div><div dir=3D"ltr">ESTIMATED FSC RPM: 0.49<br></div><div dir=3D"l=
+tr">ESTIMATED DH MILES: 135<br></div><div dir=3D"ltr">DH NUMBER: 24260<br><=
+/div><div dir=3D"ltr">DH RPM: 1.40<br></div><div dir=3D"ltr">OR DH FLAT: 0.=
+00<br></div><div dir=3D"ltr">DISP: QC=C2=A0 =C2=A0 =C2=A0  06-24-22 12:09<b=
+r></div><div dir=3D"ltr">LOAD ACCEPTED AT 06-24-22 12:09<br></div><div dir=
+=3D"ltr">BY TRUCK 33739 FOR OWNER 51120<br></div><div dir=3D"ltr">---------=
+-------------------------------<br></div><div dir=3D"ltr">TOLLS: 14.75<br><=
+/div><div dir=3D"ltr">BONUS: 200.00<br></div><div dir=3D"ltr">TOLL REIMBURS=
+EMENT: Y<br></div><div dir=3D"ltr">DISP: QC 06-24-22 12:09<br></div><div di=
+r=3D"ltr"><br></div><div dir=3D"ltr">Load may require a swap based on<br></=
+div><div dir=3D"ltr">meeting customer needs and to ensure<br></div><div dir=
+=3D"ltr">compliance with FMCSA regulations.<br></div><div dir=3D"ltr">Rates=
+ will be changed accordingly.<br></div><div dir=3D"ltr">Please contact disp=
+atch with any <br></div><div dir=3D"ltr">discrepancies. Please be safe.<br>=
+</div></div>
+            </div>
+        </div></div></blockquote></div></div>
+
+--00000000000033fd7305e39f73de--
