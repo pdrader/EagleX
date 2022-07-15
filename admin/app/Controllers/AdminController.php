@@ -51,10 +51,6 @@ class AdminController extends Controller
             }
 
 
-
-
-
-
             $file_name         = $this->uploadFile($path, $file_name_main);
             $arr_file         = explode('.', $file_name);
             $extension         = end($arr_file);
@@ -149,7 +145,6 @@ class AdminController extends Controller
                             $truckModel->insert([
                                 "truck_number" =>  $truck,
 
-
                             ]);
 
                             $truck_id = $truckModel->getInsertID();
@@ -157,9 +152,6 @@ class AdminController extends Controller
                     } else {
                         $truck_id = $gettruck['id'];
                     }
-
-
-
 
                     if ($driver_id == "") {
                         $errors[$j]['Driver Name'] = "Driver Name";
@@ -200,9 +192,6 @@ class AdminController extends Controller
                         $warings[$j]['Factorial'] = 'Factorial';
                     }
 
-
-
-
                     if (!isset($errors[$j])) {
                         $prodata = [
                             "import_log_id" =>  $import_log_id,
@@ -233,18 +222,13 @@ class AdminController extends Controller
             $session->setFlashdata('errors', $errors);
             $session->setFlashdata('warings', $warings);
             return redirect()->back();
-        } catch (Exception $e) {
 
+        } catch (Exception $e) {
 
             $session->setFlashdata('error', $e->getMessage());
             return redirect()->back();
         }
     }
-
-
- 
-
-
 
     public function uploadFile($path, $image)
     {
@@ -258,24 +242,16 @@ class AdminController extends Controller
         return "";
     }
 
-    function toUserName($string)
+    public function toUserName($string)
     {
         return strtolower(trim(preg_replace('~[^0-9a-z]+~i', '_', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '_'));
     }
 
-
-
-
-
-
     public  function statementList()
     {
-
         $proModel = new ProModel();
 
         $statement_details = $proModel->getstatementlist(25,session()->get('type'));
-
-    
 
         $data = [];
         $data['title']         = 'Statement List';
@@ -287,11 +263,8 @@ class AdminController extends Controller
         echo view('includes/template', $data);
     }
 
-
     public  function runreport($driver_id, $check_date, $truck_id)
     {
-
-
         $session = session();
         $proModel = new ProModel();
          
@@ -301,15 +274,11 @@ class AdminController extends Controller
         $user = $userModel->find($driver_id);
         $check_date = date('Y-m-d',  $check_date);
         $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
-         
 
         $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
 
-
-
         if (empty($runreport_details)) {
             $session->setFlashdata('error', 'Error in runreport() around line 307. Tell IT dept.');
-
 
             return redirect()->route('admin/statement-list');
         }
@@ -319,8 +288,6 @@ class AdminController extends Controller
 
         $data['main_content']    = 'runreport';
         $data['runreport_details']    =  $runreport_details;
-
-         
 
         $data['advance_details']    =  $advance_details;
 
@@ -360,16 +327,9 @@ class AdminController extends Controller
             $recalculate =  $this->request->getPost('recalculate');
             $recalculate_approved =  $this->request->getPost('recalculate_approved');
 
-
-
-
-
             $getadvance = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
 
-
-
             if (empty($getadvance)) {
-
 
                 $advanceModel->insert([
                     "driver_advance" =>  trim($driver_advance),
@@ -381,7 +341,6 @@ class AdminController extends Controller
                     "driver_id" => trim($driver_id),
                     "check_date" => trim($check_date),
                     "truck_id" => trim($truck_id),
-
 
                 ]);
             } else {
@@ -405,7 +364,6 @@ class AdminController extends Controller
 
             foreach ($payment as $pro_id => $paymentloop) {
 
-
                 $payemntdata = [
                     "pro_number" =>  trim($paymentloop['pro_number']),
                     "rate" =>  trim($paymentloop['rate']),
@@ -417,8 +375,6 @@ class AdminController extends Controller
                     "handload" =>  trim($paymentloop['handload']),
                     "deadhead" =>  trim($paymentloop['deadhead']),
                     "bonus" =>  trim($paymentloop['bonus']),
-
-
 
                 ];
 
@@ -456,20 +412,6 @@ class AdminController extends Controller
         }
     }
 
-<<<<<<< Updated upstream
-  public function viewreport($driver_id, $check_date, $truck_id)
-  {
-    $proModel = new ProModel();
-     
-    $advanceModel = new AdvanceModel();
-    $userModel = new UserModel();
-    $session = session();
-
-    $user = $userModel->find($driver_id);
-    $check_date = date('Y-m-d',  $check_date);
-    $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
-    
-=======
     public function viewreport($driver_id, $check_date, $truck_id)
     {
         $proModel = new ProModel();
@@ -481,23 +423,10 @@ class AdminController extends Controller
         $user = $userModel->find($driver_id);
         $check_date = date('Y-m-d',  $check_date);
         $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
-
->>>>>>> Stashed changes
-
         $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
-
-
-
-<<<<<<< Updated upstream
-    if (empty($runreport_details)) {
-        $session->setFlashdata('error', 'Error in AdminController around Line 473. Tell IT dept.');
-=======
         if (empty($runreport_details)) {
-            $session->setFlashdata('error', 'Error in viewreport() around Line 473. Tell IT dept.');
->>>>>>> Stashed changes
-
-
-            return redirect()->back();
+            $session->setFlashdata('error', 'Error in AdminController around Line 473. Tell IT dept.');
+                return redirect()->back();
         }
 
         $data = [];
@@ -518,60 +447,35 @@ class AdminController extends Controller
         $data['truck_id']    =  $truck_id;
 
         echo view('includes/template', $data);
-
-<<<<<<< Updated upstream
-  }  
-
-  public function prodelete($pro_id)
-  {
-    $session = session();
- 
-=======
     }  
 
     public function prodelete($pro_id)
     {
         $session = session();
 
->>>>>>> Stashed changes
         $proModel = new ProModel();
 
         $proModel->where('id', $pro_id)->delete();
 
         $session->setFlashdata('error', 'Payment deleted successfully.');
 
-<<<<<<< Updated upstream
-    return redirect()->back();
-  }
-=======
         return redirect()->back();
     }
->>>>>>> Stashed changes
 
-public function deleterunreport($driver_id, $check_date, $truck_id)
-{
-    $session = session();
- 
-    $proModel = new ProModel();
-    $advanceModel = new AdvanceModel();
-    $check_date = date('Y-m-d',  $check_date);
-    $proModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
-  
-    $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
+    public function deleterunreport($driver_id, $check_date, $truck_id)
+    {
+        $session = session();
+     
+        $proModel = new ProModel();
+        $advanceModel = new AdvanceModel();
+        $check_date = date('Y-m-d',  $check_date);
+        $proModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
+      
+        $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
 
-<<<<<<< Updated upstream
-$session->setFlashdata('error', 'Statement deleted successfully.');
-
-
-return redirect()->back();
-}
-
-
-=======
         $session->setFlashdata('error', 'Statement deleted successfully.');
 
-
         return redirect()->back();
     }
->>>>>>> Stashed changes
+
 }
