@@ -397,7 +397,19 @@ class AdminController extends Controller
           
             if (isset($recalculate_approved)) {
 
-                $session->setFlashdata('success', 'Settlement Statement Recalculated & Approved.');
+                // go here: admin/driver/report/send/2/1658120400/1
+
+                //$driver_id
+                //strtotime($check_date)
+                //$truck_id
+
+                echo('admin/driver/report/send/'.$driver_id.'/'.strtotime($check_date).'/'.$truck_id.'');
+
+                redirect()-> to('driver/report/send/'.$driver_id.'/'.strtotime($check_date).'/'.$truck_id); 
+
+                ///todo: fix this.
+                $session->setFlashdata('success', 'Settlement Statement Approved. Email sent.');
+
             } else {
 
                 $session->setFlashdata('success', 'Settlement Statement Updated Successfully.');
