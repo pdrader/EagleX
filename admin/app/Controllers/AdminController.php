@@ -247,11 +247,19 @@ class AdminController extends Controller
         return strtolower(trim(preg_replace('~[^0-9a-z]+~i', '_', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '_'));
     }
 
+
+
+
+
+
     public  function statementList()
     {
+
         $proModel = new ProModel();
 
         $statement_details = $proModel->getstatementlist(25,session()->get('type'));
+
+    
 
         $data = [];
         $data['title']         = 'Statement List';
@@ -262,6 +270,7 @@ class AdminController extends Controller
 
         echo view('includes/template', $data);
     }
+
 
     public  function runreport($driver_id, $check_date, $truck_id)
     {
@@ -274,11 +283,15 @@ class AdminController extends Controller
         $user = $userModel->find($driver_id);
         $check_date = date('Y-m-d',  $check_date);
         $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
+         
 
         $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
 
+
+
         if (empty($runreport_details)) {
             $session->setFlashdata('error', 'Error in runreport() around line 307. Tell IT dept.');
+
 
             return redirect()->route('admin/statement-list');
         }
@@ -288,6 +301,8 @@ class AdminController extends Controller
 
         $data['main_content']    = 'runreport';
         $data['runreport_details']    =  $runreport_details;
+
+         
 
         $data['advance_details']    =  $advance_details;
 
@@ -327,9 +342,16 @@ class AdminController extends Controller
             $recalculate =  $this->request->getPost('recalculate');
             $recalculate_approved =  $this->request->getPost('recalculate_approved');
 
+
+
+
+
             $getadvance = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
 
+
+
             if (empty($getadvance)) {
+
 
                 $advanceModel->insert([
                     "driver_advance" =>  trim($driver_advance),
@@ -341,6 +363,7 @@ class AdminController extends Controller
                     "driver_id" => trim($driver_id),
                     "check_date" => trim($check_date),
                     "truck_id" => trim($truck_id),
+
 
                 ]);
             } else {
@@ -364,6 +387,7 @@ class AdminController extends Controller
 
             foreach ($payment as $pro_id => $paymentloop) {
 
+
                 $payemntdata = [
                     "pro_number" =>  trim($paymentloop['pro_number']),
                     "rate" =>  trim($paymentloop['rate']),
@@ -375,6 +399,8 @@ class AdminController extends Controller
                     "handload" =>  trim($paymentloop['handload']),
                     "deadhead" =>  trim($paymentloop['deadhead']),
                     "bonus" =>  trim($paymentloop['bonus']),
+
+
 
                 ];
 
