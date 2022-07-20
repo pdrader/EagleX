@@ -14,8 +14,6 @@ use App\Models\AdvanceModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-
-
 class AdminController extends Controller
 {
     public function payment()
@@ -49,6 +47,10 @@ class AdminController extends Controller
                 $session->setFlashdata('error', "Invald File or format.");
                 return redirect()->back();
             }
+
+
+
+
 
 
             $file_name         = $this->uploadFile($path, $file_name_main);
@@ -145,6 +147,7 @@ class AdminController extends Controller
                             $truckModel->insert([
                                 "truck_number" =>  $truck,
 
+
                             ]);
 
                             $truck_id = $truckModel->getInsertID();
@@ -152,6 +155,9 @@ class AdminController extends Controller
                     } else {
                         $truck_id = $gettruck['id'];
                     }
+
+
+
 
                     if ($driver_id == "") {
                         $errors[$j]['Driver Name'] = "Driver Name";
@@ -192,6 +198,9 @@ class AdminController extends Controller
                         $warings[$j]['Factorial'] = 'Factorial';
                     }
 
+
+
+
                     if (!isset($errors[$j])) {
                         $prodata = [
                             "import_log_id" =>  $import_log_id,
@@ -222,13 +231,18 @@ class AdminController extends Controller
             $session->setFlashdata('errors', $errors);
             $session->setFlashdata('warings', $warings);
             return redirect()->back();
-
         } catch (Exception $e) {
+
 
             $session->setFlashdata('error', $e->getMessage());
             return redirect()->back();
         }
     }
+
+
+ 
+
+
 
     public function uploadFile($path, $image)
     {
@@ -242,7 +256,7 @@ class AdminController extends Controller
         return "";
     }
 
-    public function toUserName($string)
+    function toUserName($string)
     {
         return strtolower(trim(preg_replace('~[^0-9a-z]+~i', '_', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '_'));
     }
@@ -420,22 +434,37 @@ class AdminController extends Controller
                 $proModel->update();
             }
 
-          
+
+
             if (isset($recalculate_approved)) {
 
-                // go here: admin/driver/report/send/2/1658120400/1
+                $userModel = new UserModel();
+                $user = $userModel->find($driver_id);
+                $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
+                $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
+                $email = \Config\Services::email(); // loading for use
+                $session = session();
+                $email->setFrom("noreply@eaglex.llc",'Eagle Expedited');
+                $email->setSubject("Eagle Expedited, LLC - Settlement Statement");
+                $email->setTo($user['email']);
+                $data = [];
+                $data['title']         = 'Settlement Statement';            
+                $data['main_content']    = 'emailreport';
+                $data['runreport_details']    =  $runreport_details;          
+                $data['advance_details']    =  $advance_details;             
+                $data['driver_name']=ucwords($user['name']);
+                $data['driver_email']= ($user['email']);
+                $data['driver_id']    =  $driver_id;
+                $data['check_date']    =  $check_date;
+                $data['truck_id']    =  $truck_id;            
+                $template =  view('includes/email', $data);
+                $email->setMessage($template);
+                $email->send();
+            }
+             
+            if (isset($recalculate_approved)) {
 
-                //$driver_id
-                //strtotime($check_date)
-                //$truck_id
-
-                echo('admin/driver/report/send/'.$driver_id.'/'.strtotime($check_date).'/'.$truck_id.'');
-
-                redirect()-> to('driver/report/send/'.$driver_id.'/'.strtotime($check_date).'/'.$truck_id); 
-
-                ///todo: fix this.
-                $session->setFlashdata('success', 'Settlement Statement Approved. Email sent.');
-
+                $session->setFlashdata('success', 'Settlement Statement Recalculated & Approved.');
             } else {
 
                 $session->setFlashdata('success', 'Settlement Statement Updated Successfully.');
@@ -450,70 +479,80 @@ class AdminController extends Controller
         }
     }
 
-    public function viewreport($driver_id, $check_date, $truck_id)
-    {
-        $proModel = new ProModel();
-         
-        $advanceModel = new AdvanceModel();
-        $userModel = new UserModel();
-        $session = session();
+  public function viewreport($driver_id, $check_date, $truck_id)
+  {
+    $proModel = new ProModel();
+     
+    $advanceModel = new AdvanceModel();
+    $userModel = new UserModel();
+    $session = session();
 
-        $user = $userModel->find($driver_id);
-        $check_date = date('Y-m-d',  $check_date);
-        $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
-        $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
-        if (empty($runreport_details)) {
-            $session->setFlashdata('error', 'Error in AdminController around Line 473. Tell IT dept.');
-                return redirect()->back();
-        }
+    $user = $userModel->find($driver_id);
+    $check_date = date('Y-m-d',  $check_date);
+    $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
+    
 
-        $data = [];
-        $data['title']         = 'Pay Statement';
+    $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
 
-        $data['main_content']    = 'viewreport';
-        $data['runreport_details']    =  $runreport_details;
+
+
+    if (empty($runreport_details)) {
+        $session->setFlashdata('error', 'Error in AdminController around Line 473. Tell IT dept.');
+
+
+        return redirect()->back();
+    }
+
+    $data = [];
+    $data['title']         = 'Pay Statement';
+
+    $data['main_content']    = 'viewreport';
+    $data['runreport_details']    =  $runreport_details;
 
     
 
-        $data['advance_details']    =  $advance_details;
+    $data['advance_details']    =  $advance_details;
 
 
-        $data['driver_name']=ucwords($user['name']);
-        $data['driver_email']=($user['email']);
-        $data['driver_id']    =  $driver_id;
-        $data['check_date']    =  $check_date;
-        $data['truck_id']    =  $truck_id;
+    $data['driver_name']=ucwords($user['name']);
+    $data['driver_email']=($user['email']);
+    $data['driver_id']    =  $driver_id;
+    $data['check_date']    =  $check_date;
+    $data['truck_id']    =  $truck_id;
 
-        echo view('includes/template', $data);
-    }  
+    echo view('includes/template', $data);
 
-    public function prodelete($pro_id)
-    {
-        $session = session();
+  }  
 
+  public function prodelete($pro_id)
+  {
+    $session = session();
+ 
         $proModel = new ProModel();
 
         $proModel->where('id', $pro_id)->delete();
+    $session->setFlashdata('error', 'Payment deleted successfully.');
 
-        $session->setFlashdata('error', 'Payment deleted successfully.');
 
-        return redirect()->back();
-    }
+    return redirect()->back();
+  }
 
-    public function deleterunreport($driver_id, $check_date, $truck_id)
-    {
-        $session = session();
-     
-        $proModel = new ProModel();
-        $advanceModel = new AdvanceModel();
-        $check_date = date('Y-m-d',  $check_date);
-        $proModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
-      
-        $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
+public function deleterunreport($driver_id, $check_date, $truck_id)
+{
+    $session = session();
+ 
+    $proModel = new ProModel();
+    $advanceModel = new AdvanceModel();
+    $check_date = date('Y-m-d',  $check_date);
+    $proModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
+  
+    $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
 
-        $session->setFlashdata('error', 'Statement deleted successfully.');
+$session->setFlashdata('error', 'Statement deleted successfully.');
 
-        return redirect()->back();
-    }
+
+return redirect()->back();
+}
+
 
 }
