@@ -15,7 +15,7 @@
     <tr>
      
       <th scope="col">Driver Name</th>
-      <th scope="col">Check Date</th>
+      <th scope="col">Pay Date</th>
       <th scope="col">Truck Number</th>
       <th scope="col">Action</th>
     </tr>

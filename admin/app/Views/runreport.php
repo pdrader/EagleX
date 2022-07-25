@@ -213,7 +213,7 @@ Driver Advance
 
 <tr>
    
-  <td    colspan="6"  class="text-end">Misc</td>  
+  <td    colspan="6"  class="text-end">Driver Reimbursement</td>  
   <td> <input type="text" class="form-control only-decimal"  name="misc"  min="0" value="<?php echo trim($advance_details['misc']) ?>"></td>
 </tr>
 <tr>
@@ -332,7 +332,7 @@ echo number_format($total_payment,2);
   <div class="row">
       <div class="col-12 text-end">
       <button type="submit" class="btn btn-success default-btn  recalculate" name="recalculate">Recalculate</button>
-      <button type="submit" class="btn btn-success default-btn  recalculate_approved"  name="recalculate_approved">Recalculate & Approve</button>
+      <button type="submit" class="btn btn-success default-btn  recalculate_approved"  name="recalculate_approved">Approve & Send</button>
 </div>
 </div>
 
