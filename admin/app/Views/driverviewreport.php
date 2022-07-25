@@ -192,7 +192,7 @@ foreach($runreport_details as $runreport_detail){
 
 <tr>
 
-  <td colspan="4"  class="text-end">Driver Reimbursement</td>  
+  <td colspan="4"  class="text-end">Misc</td>  
   <td class="text-end">  $<?php echo number_format(trim($advance_details['misc']),2) ?> </td>
 </tr>
 <tr>

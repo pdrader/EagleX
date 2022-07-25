@@ -32,7 +32,7 @@
 
   <div class="col-6">
  
-      <p class="text-end"></p>
+      <p class="text-end"><b>Driver:</b> <?php  echo $runreport_details[0]['driver_number'];   ?> </p>
   </div> 
 
   <div class="col-6">
@@ -58,6 +58,7 @@
       <th scope="col"  >Pro #</th>
       <th scope="col"   >RPM</th>
       <th scope="col" >Miles</th>
+      <th scope="col" >Linehaul</th>   
       <th scope="col">Detention</th>
       <th scope="col">Layover</th>
       <th scope="col">Stopoff</th>
@@ -94,6 +95,12 @@ foreach($runreport_details as $runreport_detail){
 
        <?php  echo trim($runreport_detail['miles']); ?> 
  
+      </td>
+
+      <td  class="text-end" >
+       
+       $<?php echo number_format($runreport_detail['rate']*$runreport_detail['miles'],2) ?>
+       
       </td>
       <td  class="text-end" >
         $<?php
@@ -167,14 +174,14 @@ foreach($runreport_details as $runreport_detail){
 }
 ?>
 <tr>
-  <td colspan="10">&nbsp; </td>
+  <td colspan="11">&nbsp; </td>
 </tr>
 <tr>
-  <td colspan="10">&nbsp; </td>
+  <td colspan="11">&nbsp; </td>
 </tr>
 <tr>
-<td colspan="5" rowspan="2" class="">
-Comment: 
+<td colspan="6" rowspan="2" class="">
+
   
  <?php echo trim($advance_details['advance_comment']) ?> 
   
@@ -191,12 +198,12 @@ Comment:
   <td class="text-end">  $<?php echo number_format(trim($advance_details['misc']),2) ?> </td>
 </tr>
 <tr>
-  <td colspan="10">&nbsp; </td>
+  <td colspan="11">&nbsp; </td>
 </tr>
 
 <tr>
  
-  <td  colspan="9"  class="text-end"><b>Payments Subtotal</b></td>
+  <td  colspan="10"  class="text-end"><b>Payments Subtotal</b></td>
   <td class="text-end">
     $<?php 
   
@@ -214,13 +221,13 @@ Comment:
 </tr>
  
 <tr>
-  <td colspan="10">&nbsp; </td>
+  <td colspan="11">&nbsp; </td>
 </tr>
 <tr>
-  <td colspan="10">&nbsp; </td>
+  <td colspan="11">&nbsp; </td>
 </tr>
 <tr>
-  <td colspan="10"><h5><b>Deductions</b></h5></td>
+  <td colspan="11"><h5><b>Deductions</b></h5></td>
 </tr>
 
 
@@ -229,13 +236,13 @@ Comment:
 
  
 <tr>
-  <td colspan="9" class="text-end">Advance Repayment</td>  
+  <td colspan="10" class="text-end">Advance Repayment</td>  
    
   <td class="text-end">  $<?php echo  number_format(trim($advance_details['advance_repayment']),2); ?>  </td>
 </tr>
 
 <tr>
-  <td colspan="9" class="text-end">Occupational Insurance </td>
+  <td colspan="10" class="text-end">Occupational Insurance </td>
    
   <td class="text-end"> $<?php echo number_format(trim($advance_details['occupational_insurance']),2); ?> 
 
@@ -247,12 +254,12 @@ Comment:
 
 
 <tr>
-  <td colspan="10">&nbsp; </td>
+  <td colspan="11">&nbsp; </td>
 </tr>
 
 <tr>
  
-  <td colspan="9" class="text-end"><b>Deductions Subtotal</b></td>
+  <td colspan="10" class="text-end"><b>Deductions Subtotal</b></td>
   <td class="text-end">
     
 $<?php
@@ -270,8 +277,8 @@ $<?php
 </tr>
 
 <tr>
-<td colspan="5" rowspan="2"> 
-  Comment: 
+<td colspan="6" rowspan="2"> 
+  
  <?php echo trim($advance_details['total_comment']) ?>
 </td>
  

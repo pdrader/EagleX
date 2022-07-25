@@ -227,7 +227,7 @@ class AdminController extends Controller
                 $j++;
             }
 
-            $session->setFlashdata('success', 'Panther data uploaded successfully.');
+            $session->setFlashdata('success', 'Pro Successfully Imported.');
             $session->setFlashdata('errors', $errors);
             $session->setFlashdata('warings', $warings);
             return redirect()->back();
@@ -467,37 +467,6 @@ class AdminController extends Controller
                 $proModel->update();
             }
 
-<<<<<<< Updated upstream
-
-
-            if (isset($recalculate_approved)) {
-
-                $userModel = new UserModel();
-                $user = $userModel->find($driver_id);
-                $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
-                $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
-                $email = \Config\Services::email(); // loading for use
-                $session = session();
-                $email->setFrom("noreply@eaglex.llc",'Eagle Expedited');
-                $email->setSubject("Eagle Expedited, LLC - Settlement Statement");
-                $email->setTo($user['email']);
-                $data = [];
-                $data['title']         = 'Settlement Statement';            
-                $data['main_content']    = 'emailreport';
-                $data['runreport_details']    =  $runreport_details;          
-                $data['advance_details']    =  $advance_details;             
-                $data['driver_name']=ucwords($user['name']);
-                $data['driver_email']= ($user['email']);
-                $data['driver_id']    =  $driver_id;
-                $data['check_date']    =  $check_date;
-                $data['truck_id']    =  $truck_id;            
-                $template =  view('includes/email', $data);
-                $email->setMessage($template);
-                $email->send();
-            }
-             
-=======
->>>>>>> Stashed changes
             if (isset($recalculate_approved)) {
 
                 $userModel = new UserModel();

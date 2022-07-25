@@ -33,7 +33,7 @@
 
   <div class="col-6">
  
-      <p class="text-end">&nbsp;</p>
+      <p class="text-end"><b>Driver:</b> <?php  echo $runreport_details[0]['driver_number'];   ?> </p>
   </div> 
 
   <div class="col-6">
@@ -59,6 +59,7 @@
       <th scope="col" width="120px">Pro #</th>
       <th scope="col" width="75px" >RPM</th>
       <th scope="col" width="75px">Miles</th>
+      <th scope="col" width="75px">Linehaul</th>      
       <th scope="col" width="75px">Factorial</th>
       <th scope="col">Detention</th>
       <th scope="col">Layover</th>
@@ -79,7 +80,7 @@ $payments_subtotal=[];
 $advance_details['driver_advance']=isset($advance_details['driver_advance'])?$advance_details['driver_advance']:'0.00';
 $advance_details['misc']=isset($advance_details['misc'])?$advance_details['misc']:'0.00';
 $advance_details['advance_repayment']=isset($advance_details['advance_repayment'])?$advance_details['advance_repayment']:'0.00';
-$advance_details['occupational_insurance']=isset($advance_details['occupational_insurance'])?$advance_details['occupational_insurance']:'27.99';
+$advance_details['occupational_insurance']=isset($advance_details['occupational_insurance'])?$advance_details['occupational_insurance']:'0.00';
 
 $advance_details['advance_comment']=isset($advance_details['advance_comment'])?$advance_details['advance_comment']:'';
 $advance_details['total_comment']=isset($advance_details['total_comment'])?$advance_details['total_comment']:'';
@@ -101,6 +102,10 @@ foreach($runreport_details as $runreport_detail){
 
       <input type="text"  class="form-control only-numeric" name="payment[<?php echo $runreport_detail['id']; ?>][miles]" value=" <?php  echo trim($runreport_detail['miles']); ?>">
  
+      </td>
+      <td>
+$<?php echo number_format($runreport_detail['rate']*$runreport_detail['miles'],2) ?>
+
       </td>
      <td >        
       <input type="text" class="form-control only-decimal"  name="payment[<?php echo $runreport_detail['id']; ?>][factorial]"  min="0" value="<?php  echo trim($runreport_detail['factorial']); ?>">
@@ -184,15 +189,15 @@ foreach($runreport_details as $runreport_detail){
 }
 ?>
 <tr>
-  <td colspan="12">&nbsp; </td>
+  <td colspan="13">&nbsp; </td>
 </tr>
 <tr>
-  <td colspan="12">&nbsp; </td>
+  <td colspan="13">&nbsp; </td>
 </tr>
 <tr>
 
 
-<td colspan="5" rowspan="2" class="">
+<td colspan="6" rowspan="2" class="">
 
   
   <textarea class="form-control" id="advance_comment" name="advance_comment" rows="3" placeholder="Advance Comment"><?php echo trim($advance_details['advance_comment']) ?></textarea>
@@ -213,16 +218,16 @@ Driver Advance
 
 <tr>
    
-  <td    colspan="6"  class="text-end">Driver Reimbursement</td>  
+  <td    colspan="6"  class="text-end">Misc</td>  
   <td> <input type="text" class="form-control only-decimal"  name="misc"  min="0" value="<?php echo trim($advance_details['misc']) ?>"></td>
 </tr>
 <tr>
-  <td colspan="12">&nbsp; </td>
+  <td colspan="13">&nbsp; </td>
 </tr>
 
 <tr>
  
-  <td  colspan="11"  class="text-end"><b>Payments Subtotal</b></td>
+  <td  colspan="12"  class="text-end"><b>Payments Subtotal</b></td>
   <td class="text-end">$<?php 
   
   
@@ -239,23 +244,23 @@ Driver Advance
 </tr>
  
 <tr>
-  <td colspan="12">&nbsp; </td>
+  <td colspan="13">&nbsp; </td>
 </tr>
 <tr>
-  <td colspan="12">&nbsp; </td>
+  <td colspan="13">&nbsp; </td>
 </tr>
 <tr>
-  <td colspan="12"><h5><b>Deductions</b></h5></td>
+  <td colspan="13"><h5><b>Deductions</b></h5></td>
 </tr>
 
 <tr>
-  <td colspan="11" class="text-end">Advance Repayment</td>  
+  <td colspan="12" class="text-end">Advance Repayment</td>  
    
   <td> <input type="text" class="form-control only-decimal"  name="advance_repayment"  min="0" value="<?php echo  trim($advance_details['advance_repayment']) ?>"> </td>
 </tr>
  
 <tr>
-  <td colspan="11" class="text-end">Occupational Insurance </td>
+  <td colspan="12" class="text-end">Occupational Insurance </td>
    
   <td> <input type="text"  class="form-control  only-decimal" name="occupational_insurance" value="<?php echo trim($advance_details['occupational_insurance']); ?>"></td>
 
@@ -270,12 +275,12 @@ Driver Advance
 
 
 <tr>
-  <td colspan="12">&nbsp; </td>
+  <td colspan="13">&nbsp; </td>
 </tr>
 
 <tr>
  
-  <td colspan="11" class="text-end"><b>Deductions Subtotal</b></td>
+  <td colspan="12" class="text-end"><b>Deductions Subtotal</b></td>
   <td class="text-end">
     
 $<?php
@@ -293,7 +298,7 @@ $<?php
 </tr>
 
 <tr>
-<td colspan="5" rowspan="2"> 
+<td colspan="6" rowspan="2"> 
   
 <textarea class="form-control" id="total_comment" name="total_comment" rows="3" placeholder="Total Comment"><?php echo trim($advance_details['total_comment']) ?></textarea>
 </td>
