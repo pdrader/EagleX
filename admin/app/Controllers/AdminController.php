@@ -263,24 +263,55 @@ class AdminController extends Controller
 
 
 
-
+ 
 
 
     public  function statementList()
     {
 
+
+
+      
+
+
         $proModel = new ProModel();
 
-        $statement_details = $proModel->getstatementlist(25,session()->get('type'));
+         $date_list=$proModel->getdatelist();
 
+        
+ 
+
+           $start_date=$this->request->getVar('filter_date');
+         if(!$start_date)
+         {
+            $start_date= strtotime('monday this week');
+         }
+             $start_date= date('Y-m-d', ($start_date));
+           $end_date= date('Y-m-d', strtotime($start_date . ' +6 day'));
+
+
+         $statement_details = $proModel->getstatementlist(25,session()->get('type'), $start_date, $end_date);
+         $statement_detaildata=[];
+         foreach($statement_details as $statement_detail)
+         {  
+            $statement_detail['total']= $proModel->gettotalsofStatement($statement_detail['driver_id'],$statement_detail['check_date'],$statement_detail['truck_id']);
+            $statement_detaildata[]=$statement_detail;
+          
+
+         }
+
+
+    
     
 
         $data = [];
         $data['title']         = 'Statement List';
 
         $data['main_content']    = 'statementlist';
-        $data['statement_details']    =  $statement_details;
-        $data['pager']    = $proModel->pager ;
+        $data['statement_details']    =  $statement_detaildata;
+        $data['date_list']    =  $date_list;
+        
+       // $data['pager']    = $proModel->pager ;
 
         echo view('includes/template', $data);
     }
@@ -303,8 +334,10 @@ class AdminController extends Controller
 
 
 
+
+
         if (empty($runreport_details)) {
-            $session->setFlashdata('error', 'Error in runreport() around line 307. Tell IT dept.');
+            $session->setFlashdata('error', 'Something is missing. Please try again later.');
 
 
             return redirect()->route('admin/statement-list');
@@ -434,6 +467,7 @@ class AdminController extends Controller
                 $proModel->update();
             }
 
+<<<<<<< Updated upstream
 
 
             if (isset($recalculate_approved)) {
@@ -462,12 +496,43 @@ class AdminController extends Controller
                 $email->send();
             }
              
+=======
+>>>>>>> Stashed changes
             if (isset($recalculate_approved)) {
 
-                $session->setFlashdata('success', 'Settlement Statement Recalculated & Approved.');
+                $userModel = new UserModel();
+                $user = $userModel->find($driver_id);
+                $runreport_details = $proModel->getrunreport($driver_id, $check_date, $truck_id);
+                $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
+                $email = \Config\Services::email(); // loading for use
+                $session = session();
+                $email->setFrom("noreply@eaglex.llc",'Eagle Expedited');
+                $email->setSubject("Eagle Expedited, LLC - Settlement Statement");
+
+                $user_email='paulette.rader@gmail.com';
+                $email->setTo($user_email);
+               // $email->setTo($user['email']);
+                $data = [];
+                $data['title']         = 'Settlement Statement';            
+                $data['main_content']    = 'emailreport';
+                $data['runreport_details']    =  $runreport_details;          
+                $data['advance_details']    =  $advance_details;     
+            
+               $data['driver_name']=ucwords($user['name']);
+               $data['driver_email']= ($user['email']);
+                $data['driver_id']    =  $driver_id;
+                $data['check_date']    =  $check_date;
+                $data['truck_id']    =  $truck_id;            
+                $template =  view('includes/email', $data);
+                 $email->setMessage($template);
+                 $email->send();
+            }
+            if (isset($recalculate_approved)) {
+
+                $session->setFlashdata('success', 'Settlement Statement Recalculate & Approved  Successfully.');
             } else {
 
-                $session->setFlashdata('success', 'Settlement Statement Updated Successfully.');
+                $session->setFlashdata('success', 'Settlement Statement Update Successfully.');
             }
 
             return redirect()->back();
@@ -497,7 +562,7 @@ class AdminController extends Controller
 
 
     if (empty($runreport_details)) {
-        $session->setFlashdata('error', 'Error in AdminController around Line 473. Tell IT dept.');
+        $session->setFlashdata('error', 'Something is missing. Please try again later.');
 
 
         return redirect()->back();
@@ -531,7 +596,7 @@ class AdminController extends Controller
         $proModel = new ProModel();
 
         $proModel->where('id', $pro_id)->delete();
-    $session->setFlashdata('error', 'Payment deleted successfully.');
+    $session->setFlashdata('error', 'Payment delete successfully.');
 
 
     return redirect()->back();
@@ -548,7 +613,7 @@ public function deleterunreport($driver_id, $check_date, $truck_id)
   
     $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->delete();
 
-$session->setFlashdata('error', 'Statement deleted successfully.');
+$session->setFlashdata('error', 'Statement delete successfully.');
 
 
 return redirect()->back();

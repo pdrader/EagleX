@@ -19,7 +19,29 @@ class DriverController extends Controller
 
       $proModel = new ProModel();
 
-      $statement_details = $proModel->getstatementlist(25,session()->get('type'));
+      $date_list=$proModel->getdatelist(session()->get('id'));
+
+        
+ 
+
+           $start_date=$this->request->getVar('filter_date');
+         if(!$start_date)
+         {
+            $start_date= strtotime('monday this week');
+         }
+             $start_date= date('Y-m-d', ($start_date));
+           $end_date= date('Y-m-d', strtotime($start_date . ' +6 day'));
+           
+
+         $statement_details = $proModel->getstatementlist(25,session()->get('type'), $start_date, $end_date);
+         $statement_detaildata=[];
+         foreach($statement_details as $statement_detail)
+         {  
+            $statement_detail['total']= $proModel->gettotalsofStatement($statement_detail['driver_id'],$statement_detail['check_date'],$statement_detail['truck_id']);
+            $statement_detaildata[]=$statement_detail;
+          
+
+         }
 
   
 
@@ -27,9 +49,9 @@ class DriverController extends Controller
       $data['title']         = 'Statement List';
 
       $data['main_content']    = 'statementlist';
-      $data['statement_details']    =  $statement_details;
-      $data['pager']    = $proModel->pager ;
-
+      $data['statement_details']    =  $statement_detaildata;
+     // $data['pager']    = $proModel->pager ;
+     $data['date_list']    =  $date_list;
       echo view('includes/template', $data);
   }
 
@@ -131,8 +153,9 @@ if($user['email']=="")
       return redirect()->back();
 }
     
- 
-$email->setTo($user['email']);
+$user_email='paulette.rader@gmail.com';
+$email->setTo($user_email);
+//$email->setTo($user['email']);
 
 
     $proModel = new ProModel();
