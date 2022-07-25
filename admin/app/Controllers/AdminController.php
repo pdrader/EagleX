@@ -478,9 +478,9 @@ class AdminController extends Controller
                 $email->setFrom("noreply@eaglex.llc",'Eagle Expedited');
                 $email->setSubject("Eagle Expedited, LLC - Settlement Statement");
 
-                $user_email='paulette.rader@gmail.com';
-                $email->setTo($user_email);
-               // $email->setTo($user['email']);
+                //$user_email='paulette.rader@gmail.com';
+                //$email->setTo($user_email);
+                $email->setTo($user['email']);
                 $data = [];
                 $data['title']         = 'Settlement Statement';            
                 $data['main_content']    = 'emailreport';
