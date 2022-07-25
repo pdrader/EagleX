@@ -80,7 +80,7 @@ $payments_subtotal=[];
 $advance_details['driver_advance']=isset($advance_details['driver_advance'])?$advance_details['driver_advance']:'0.00';
 $advance_details['misc']=isset($advance_details['misc'])?$advance_details['misc']:'0.00';
 $advance_details['advance_repayment']=isset($advance_details['advance_repayment'])?$advance_details['advance_repayment']:'0.00';
-$advance_details['occupational_insurance']=isset($advance_details['occupational_insurance'])?$advance_details['occupational_insurance']:'0.00';
+$advance_details['occupational_insurance']=isset($advance_details['occupational_insurance'])?$advance_details['occupational_insurance']:'27.99';
 
 $advance_details['advance_comment']=isset($advance_details['advance_comment'])?$advance_details['advance_comment']:'';
 $advance_details['total_comment']=isset($advance_details['total_comment'])?$advance_details['total_comment']:'';
