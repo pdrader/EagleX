@@ -161,7 +161,7 @@ while ($startTime <= $endTime) {
     $weeks[date('W', $startTime)] =  $this->getStartAndEndDate(date('W', $startTime),date('Y', $startTime)); 
     $startTime += strtotime('+1 week', 0);
     }
-    return $weeks;
+    return sort($weeks);
 }
     
 

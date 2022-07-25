@@ -121,7 +121,7 @@ echo number_format(array_sum($total_loop),2);
 <?php } else {
 ?>
 <tr>
-<td  class="text-center" colspan="5"><b>Selected week in data not found.</b></td>
+<td  class="text-center" colspan="5"><b>No data for selected week.</b></td>
 </tr>
 <?php
 } ?>
