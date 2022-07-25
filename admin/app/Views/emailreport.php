@@ -53,6 +53,7 @@
       <th scope="col"  >Pro #</th>
       <th scope="col"   >RPM</th>
       <th scope="col" >Miles</th>
+      <th scope="col" >Linehaul</th>   
       <th scope="col">Detention</th>
       <th scope="col">Layover</th>
       <th scope="col">Stopoff</th>
