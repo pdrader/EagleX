@@ -9,45 +9,9 @@ error_reporting(E_ALL);
 
 	//$homeDir = "/home/gvnvf61ftx5b";
 
-$emailPath = "email.txt";
-
-$emailParser = new PlancakeEmailParser(file_get_contents($emailPath));
-
-// You can use some predefined methods to retrieve headers...
-//$emailTo = $emailParser->getTo();
-//$emailSubject = $emailParser->getSubject();
-//$emailCc = $emailParser->getCc();
-$emailBody =  $emailParser->getBody();
-// ... or you can use the 'general purpose' method getHeader()
-//$emailDeliveredToHeader = $emailParser->getHeader('Delivered-To');
-
-//$emailBody = $emailParser->getPlainBody();
-
-// grab pro number 
-$proNumArray = explode("Receipt for Panther PRO ", $emailBody);
-//echo("PRO ".substr($proNumArray[1],0,11)." <br>");
-preg_match('/\d+/', $proNumArray[1], $proNumRegex);
-echo ("Pro Num regex: ".$proNumRegex[0]." <br>");
-
-// grab deadhead rate per mile
-$DHRPMArray = explode("DH RPM: ", $emailBody);
-//echo("DH RPM ".substr($DHRPMArray[1],0,4)." <br>");
-preg_match('/\d+\.\d+/', $DHRPMArray[1], $DHRPMRegex);
-echo ("DHRPM regex: ".$DHRPMRegex[0]." <br>");
-
-// grab deadhead flat
-//$DHFlatArray = explode("DH FLAT: ", $emailBody);
-//echo("DH Flat: ".substr($DHFlatArray[1],0,4)." <br>");
-
-// grab deadhead miles
-$DHMilesArray = explode("DH MILES: ", $emailBody);
-//echo("DH Miles: ".substr($DHMilesArray[1],0,3)." <br><br><br>");
-preg_match('/\d*/', $DHMilesArray[1], $DHMilesRegex);
-echo ("DH Miles regex: ".$DHMilesRegex[0]." <br>");
-
 //copy from email dir 
 //current path is /home/gvnvf61ftx5b/public_html/admin/emailparser
-copy("../../../mail/.caleb@eaglex_llc/cur/email:2,S","testmove/email2s");
+//copy("../../../mail/.caleb@eaglex_llc/cur/email:2,S","testmove/email2s");
 
 //get current file path
 //echo(getcwd()); // /home/gvnvf61ftx5b/public_html/admin/emailparser
@@ -57,6 +21,11 @@ copy("../../../mail/.caleb@eaglex_llc/cur/email:2,S","testmove/email2s");
 
 // relative position on server:
 // ../../../mail/.caleb@eaglex_llc/cur/email:2,S
+
+
+
+
+
 
 //$dir = new DirectoryIterator(dirname("../../../mail/.caleb@eaglex_llc/cur/"));
 //foreach ($dir as $fileinfo) {
@@ -73,17 +42,44 @@ foreach(scandir($path) as $file){
 	if($file[0] == '.'){continue;}
 
 	if( is_file($path.$file) ){
+		
 		echo($file."<br>");
-		// grab miles
-		//\d+
+		
+		$emailPath = $path.$file;
 
-		// grab rate per mile
-		//\d+\.\d+
+		$emailParser = new PlancakeEmailParser(file_get_contents($emailPath));
+
+		// You can use some predefined methods to retrieve headers...
+		//$emailTo = $emailParser->getTo();
+		//$emailSubject = $emailParser->getSubject();
+		//$emailCc = $emailParser->getCc();
+		$emailBody =  $emailParser->getBody();
+		// ... or you can use the 'general purpose' method getHeader()
+		//$emailDeliveredToHeader = $emailParser->getHeader('Delivered-To');
+
+		//$emailBody = $emailParser->getPlainBody();
+
+		// grab pro number 
+		$proNumArray = explode("Receipt for Panther PRO ", $emailBody);
+		//echo("PRO ".substr($proNumArray[1],0,11)." <br>");
+		preg_match('/\d+/', $proNumArray[1], $proNumRegex);
+		echo ("Pro Num regex: ".$proNumRegex[0]." <br>");
+
+		// grab deadhead rate per mile
+		$DHRPMArray = explode("DH RPM: ", $emailBody);
+		//echo("DH RPM ".substr($DHRPMArray[1],0,4)." <br>");
+		preg_match('/\d+\.\d+/', $DHRPMArray[1], $DHRPMRegex);
+		echo ("DHRPM regex: ".$DHRPMRegex[0]." <br>");
+
+		// grab deadhead flat
+		//$DHFlatArray = explode("DH FLAT: ", $emailBody);
+		//echo("DH Flat: ".substr($DHFlatArray[1],0,4)." <br>");
 
 		// grab deadhead miles
-		//\d+
-
-		// ignore flat for now
+		$DHMilesArray = explode("DH MILES: ", $emailBody);
+		//echo("DH Miles: ".substr($DHMilesArray[1],0,3)." <br><br><br>");
+		preg_match('/\d*/', $DHMilesArray[1], $DHMilesRegex);
+		echo ("DH Miles regex: ".$DHMilesRegex[0]." <br>");
 
 		//push to table
 
