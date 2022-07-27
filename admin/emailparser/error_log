@@ -1,0 +1,45 @@
+[12-Jul-2022 18:39:51 UTC] PHP Parse error:  syntax error, unexpected token "echo" in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 30
+[12-Jul-2022 18:40:09 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function split() in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php:28
+Stack trace:
+#0 {main}
+  thrown in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 28
+[12-Jul-2022 18:40:57 UTC] PHP Warning:  Undefined array key 2 in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 30
+[12-Jul-2022 23:15:12 UTC] PHP Fatal error:  Uncaught TypeError: substr(): Argument #1 ($string) must be of type string, array given in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php:28
+Stack trace:
+#0 /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php(28): substr()
+#1 {main}
+  thrown in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 28
+[22-Jul-2022 19:25:05 UTC] PHP Warning:  rename(email.txt,./testmove/email.txt): No such file or directory in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 36
+[22-Jul-2022 19:25:26 UTC] PHP Warning:  rename(email.txt,testmove/email.txt): No such file or directory in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 36
+[22-Jul-2022 19:25:27 UTC] PHP Warning:  rename(email.txt,testmove/email.txt): No such file or directory in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 36
+[22-Jul-2022 19:27:40 UTC] PHP Warning:  file_get_contents(email.txt): Failed to open stream: No such file or directory in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 14
+[22-Jul-2022 19:27:40 UTC] PHP Fatal error:  Uncaught Exception: Couldn't find the subject of the email in /home/gvnvf61ftx5b/public_html/admin/emailparser/PlancakeEmailParser.php:128
+Stack trace:
+#0 /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php(18): PlancakeEmailParser->getSubject()
+#1 {main}
+  thrown in /home/gvnvf61ftx5b/public_html/admin/emailparser/PlancakeEmailParser.php on line 128
+[23-Jul-2022 20:46:30 UTC] PHP Warning:  file_get_contents(email.txt): Failed to open stream: No such file or directory in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 14
+[23-Jul-2022 20:46:30 UTC] PHP Fatal error:  Uncaught Exception: Couldn't find the subject of the email in /home/gvnvf61ftx5b/public_html/admin/emailparser/PlancakeEmailParser.php:128
+Stack trace:
+#0 /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php(18): PlancakeEmailParser->getSubject()
+#1 {main}
+  thrown in /home/gvnvf61ftx5b/public_html/admin/emailparser/PlancakeEmailParser.php on line 128
+[23-Jul-2022 20:47:09 UTC] PHP Warning:  file_get_contents(email.txt): Failed to open stream: No such file or directory in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 14
+[23-Jul-2022 20:47:09 UTC] PHP Fatal error:  Uncaught Exception: Couldn't find the subject of the email in /home/gvnvf61ftx5b/public_html/admin/emailparser/PlancakeEmailParser.php:128
+Stack trace:
+#0 /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php(18): PlancakeEmailParser->getSubject()
+#1 {main}
+  thrown in /home/gvnvf61ftx5b/public_html/admin/emailparser/PlancakeEmailParser.php on line 128
+[23-Jul-2022 20:47:29 UTC] PHP Warning:  file_get_contents(email.txt): Failed to open stream: No such file or directory in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 14
+[23-Jul-2022 20:47:29 UTC] PHP Fatal error:  Uncaught Exception: Couldn't find the subject of the email in /home/gvnvf61ftx5b/public_html/admin/emailparser/PlancakeEmailParser.php:128
+Stack trace:
+#0 /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php(18): PlancakeEmailParser->getSubject()
+#1 {main}
+  thrown in /home/gvnvf61ftx5b/public_html/admin/emailparser/PlancakeEmailParser.php on line 128
+[23-Jul-2022 20:51:55 UTC] PHP Warning:  copy(tesstmove/email.txt): Failed to open stream: No such file or directory in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 36
+[23-Jul-2022 21:06:08 UTC] PHP Parse error:  syntax error, unexpected token "echo", expecting "," or ";" in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 44
+[23-Jul-2022 21:06:09 UTC] PHP Parse error:  syntax error, unexpected token "echo", expecting "," or ";" in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 44
+[24-Jul-2022 22:15:12 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getFilename() on string in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php:70
+Stack trace:
+#0 {main}
+  thrown in /home/gvnvf61ftx5b/public_html/admin/emailparser/test.php on line 70
