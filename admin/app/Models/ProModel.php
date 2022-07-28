@@ -152,7 +152,7 @@ if($minmax_date['min_date']=="")
 
 if($endTime < $today)
 {
-   $endTime= strtotime('monday this week');
+   $endTime= strtotime('next monday');
 }
 
 $weeks = array();
