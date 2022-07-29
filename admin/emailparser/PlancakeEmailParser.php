@@ -123,6 +123,7 @@ class PlancakeEmailParser {
      */
     public function getSubject()
     {
+        
         if (!isset($this->rawFields['subject']))
         {
             throw new Exception("Couldn't find the subject of the email");
@@ -183,6 +184,22 @@ class PlancakeEmailParser {
 	
     /**
      *
+     * @return bool
+     */
+    public function isDeadheadEmail(){
+
+        $ret = false;
+
+        if (str_contains($this->getSubject(), 'Receipt for Panther PRO')) { 
+            //if(str_contains($this->getFromEmail(),'panthertruckreceipts@arcb.com')){
+                $ret = true;    
+            //}
+        }
+        return $ret;        
+    }
+
+    /**
+     *
      * @return string|false
      */
     public function getFromEmail()
@@ -190,7 +207,8 @@ class PlancakeEmailParser {
         $from = self::getHeader("From");
         $pattern = '/<(.*?)>/s';
         preg_match($pattern, $from, $matches);
-        return (count($matches) == 2) ? $matches[1] : false;
+        return $this->rawFields['from'];
+        //return (count($matches) == 2) ? $matches[1] : false;
     }
 
     /**

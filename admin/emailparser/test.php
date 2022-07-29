@@ -1,11 +1,14 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 
 	include("PlancakeEmailParser.php");
+
+
+
 
 	//$homeDir = "/home/gvnvf61ftx5b";
 
@@ -23,6 +26,43 @@ error_reporting(E_ALL);
 // ../../../mail/.caleb@eaglex_llc/cur/email:2,S
 
 
+function isDeadheadEmail($string){
+	if(str_contains($string, "Receipt for Panther PRO")){
+		return true;
+	}
+	return false;
+}
+
+function coalesceArray($arr){
+	$return = "";
+	foreach($arr as $var){
+		if(!empty(trim($var))){
+			$return = trim($var);
+			break;
+		}
+	}
+	return $return;
+}
+
+function extractProNumber($string){
+	preg_match('/Receipt for Panther PRO (\d+)/', $string, $proNumRegexArray);
+	return $proNumRegexArray[1];
+}
+
+function extractDHRPM($string){
+	preg_match('/DH RPM: (\d+\.\d+)/', $string, $DHRPMRegexArray);
+	return $DHRPMRegexArray[1];
+}
+
+function extractDHMiles($string){
+	preg_match('/ESTIMATED DH MILES: (\d+)/', $string, $DHMilesRegexArray);
+	return $DHMilesRegexArray[1];
+}
+
+function extractDHFlat($string){
+	preg_match('/OR DH FLAT: (\d+\.\d+)/', $string, $DHFlatRegexArray);
+	return $DHFlatRegexArray[1];
+}
 
 
 
@@ -36,52 +76,85 @@ error_reporting(E_ALL);
 //    }
 //}
 
-$path = "../../../mail/.caleb@eaglex_llc/cur/";
+$path = "../../../mail/.panther@eaglex_llc/cur/";
 foreach(scandir($path) as $file){
 
 	if($file[0] == '.'){continue;}
 
 	if( is_file($path.$file) ){
 		
-		echo($file."<br>");
-		
 		$emailPath = $path.$file;
-
 		$emailParser = new PlancakeEmailParser(file_get_contents($emailPath));
 
 		// You can use some predefined methods to retrieve headers...
 		//$emailTo = $emailParser->getTo();
-		//$emailSubject = $emailParser->getSubject();
+		$emailSubject = $emailParser->getSubject();
 		//$emailCc = $emailParser->getCc();
 		$emailBody =  $emailParser->getBody();
 		// ... or you can use the 'general purpose' method getHeader()
 		//$emailDeliveredToHeader = $emailParser->getHeader('Delivered-To');
 
-		//$emailBody = $emailParser->getPlainBody();
+		//$emailBody = $emailParser->getPlainBody();			
 
-		// grab pro number 
-		$proNumArray = explode("Receipt for Panther PRO ", $emailBody);
-		//echo("PRO ".substr($proNumArray[1],0,11)." <br>");
-		preg_match('/\d+/', $proNumArray[1], $proNumRegex);
-		echo ("Pro Num regex: ".$proNumRegex[0]." <br>");
+		if (isDeadHeadEmail($emailParser->getSubject())){
 
-		// grab deadhead rate per mile
-		$DHRPMArray = explode("DH RPM: ", $emailBody);
-		//echo("DH RPM ".substr($DHRPMArray[1],0,4)." <br>");
-		preg_match('/\d+\.\d+/', $DHRPMArray[1], $DHRPMRegex);
-		echo ("DHRPM regex: ".$DHRPMRegex[0]." <br>");
+			echo("File name: ".$file."<br>");
+			echo("Subject:".$emailSubject."<br>");
+			
+			// grab pro number
+			$proNum = extractProNumber($emailSubject);
+			echo("PRO ".$proNum." <br>");
+			
+			// grab deadhead rate per mile
+			$DHRPM = extractDHRPM($emailBody);
+			echo("DHRPM: ".$DHRPM." <br>");
 
-		// grab deadhead flat
-		//$DHFlatArray = explode("DH FLAT: ", $emailBody);
-		//echo("DH Flat: ".substr($DHFlatArray[1],0,4)." <br>");
+			// grab deadhead flat
+			$DHFlat = extractDHFlat($emailBody);
+			echo("DH Flat: ".$DHFlat." <br>");
 
-		// grab deadhead miles
-		$DHMilesArray = explode("DH MILES: ", $emailBody);
-		//echo("DH Miles: ".substr($DHMilesArray[1],0,3)." <br><br><br>");
-		preg_match('/\d*/', $DHMilesArray[1], $DHMilesRegex);
-		echo ("DH Miles regex: ".$DHMilesRegex[0]." <br>");
+			// grab deadhead miles
+			$DHMiles = extractDHMiles($emailBody);
+			echo("DHMiles: ".$DHMiles." <br>");
 
-		//push to table
+			//push to table			
+			$servername = "localhost";
+			$username = "eaglex_crm";
+			$password = "c#6Q;x~x7LAq";
+			$dbname = "eaglex_crm";
+
+			// Create connection
+			$conn = new mysqli($servername, $username, $password, $dbname);
+
+			// Check connection
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+
+			while(mysqli_next_result($conn)){;}
+			//Create statement to insert ProNumber, RPM, Flat, Miles, FileName, Subject
+			$insertQuery = "CALL InsertToDeadhead("
+				."'".$proNum."',"
+				.$DHRPM.","
+				.$DHFlat.","
+				.$DHMiles.","
+				."'".$file."',"
+				."'".$emailSubject."'"
+				.")";
+			
+			//run it
+			if ($conn->query($insertQuery) === TRUE) {
+			  echo "New record created successfully. ".$insertQuery."<br>";
+			} else {
+			  echo "Error: " . $sql . "<br>" . $conn->error;
+			}
+
+			//todo: unique pro number
+				//todo: email sent date. make sure it's in range.
+					//todo: compare DHRPM to weekly panther rate (in DB)
+
+		}
+		
 
 	}else if( is_dir($path.$file) ){
 		//do nothing
