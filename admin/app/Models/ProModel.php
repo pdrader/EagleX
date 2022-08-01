@@ -70,7 +70,7 @@ class ProModel extends Model{
     public function getrunreport($driver_id,$check_date,$truck_id)
     {
 
-        $this->join('deadhead', ' deadhead.ProNumber = pro.pro_number', 'LEFT');
+        $this->join('vdeadhead', ' vdeadhead.pro_number = pro.pro_number', 'LEFT');
         $this->join('users', ' users.id = pro.driver_id', 'LEFT');    
         $this->join('truck', ' truck.id = pro.truck_id', 'LEFT');
         $this->select('vdeadhead.dh_amount'); 
