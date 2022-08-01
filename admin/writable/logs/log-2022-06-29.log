@@ -1,9 +1,0 @@
-ERROR - 2022-06-29 13:46:29 --> Unknown column 'check_date' in 'where clause'
-CRITICAL - 2022-06-29 13:46:29 --> Call to a member function getFirstRow() on bool
-in SYSTEMPATH/Model.php on line 249.
- 1 SYSTEMPATH/BaseModel.php(622): CodeIgniter\Model->doFirst()
- 2 APPPATH/Controllers/AdminController.php(491): CodeIgniter\BaseModel->first()
- 3 SYSTEMPATH/CodeIgniter.php(896): App\Controllers\AdminController->runreport('2', '2022-07-01', '1')
- 4 SYSTEMPATH/CodeIgniter.php(466): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
- 5 SYSTEMPATH/CodeIgniter.php(349): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
- 6 FCPATH/index.php(55): CodeIgniter\CodeIgniter->run()

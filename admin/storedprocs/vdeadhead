@@ -1,0 +1,24 @@
+CREATE OR
+REPLACE VIEW
+	vdeadhead
+AS
+SELECT
+	p.pro_number,
+	p.check_date,
+
+	d.pro_number as 'deadhead_pro_number',
+	d.accepted_date,
+	d.dh_miles,
+	d.rpm,
+	
+	f.fuelrates_id,
+	f.fuel_date,
+
+	CASE WHEN f.fuelrates_id IS NULL THEN 0.54 ELSE f.fuel_rate END as 'fuel_rate',
+	(d.dh_miles * d.rpm) - (d.dh_miles * (CASE WHEN f.fuelrates_id IS NULL THEN 0.54 ELSE f.fuel_rate END)) as 'dh_amount'
+FROM
+	deadhead d
+	LEFT JOIN 
+		pro p ON d.pro_number = p.pro_number
+	LEFT JOIN 
+		fuel_rates f ON p.check_date BETWEEN f.fuel_date AND DATE_ADD(f.fuel_date, INTERVAL -7 DAY)

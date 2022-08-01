@@ -1,3 +1,6 @@
+<html>
+<head><title>TEST PARSER</title></head>
+
 <?php
 
 //ini_set('display_errors', 1);
@@ -44,6 +47,24 @@ function coalesceArray($arr){
 	return $return;
 }
 
+function extractAcceptedDate($string){
+	
+	//LOAD ACCEPTED AT 07-14-22 13:44
+	preg_match('/LOAD ACCEPTED AT (\d\d)-(\d\d)-(\d\d)/', $string, $acceptedDateRegexArray1);
+	
+	//DISP: gazakik  07-15-22 18:58
+	preg_match('/DISP:.*(\d\d)-(\d\d)-(\d\d)/', $string, $acceptedDateRegexArray2);
+
+	// return the best one based on possible values:
+	
+	if (empty($acceptedDateRegexArray1)){
+		return $acceptedDateRegexArray2;
+	} 
+	else{
+		return $acceptedDateRegexArray1;
+	}
+}
+
 function extractProNumber($string){
 	preg_match('/Receipt for Panther PRO (\d+)/', $string, $proNumRegexArray);
 	return $proNumRegexArray[1];
@@ -64,17 +85,6 @@ function extractDHFlat($string){
 	return $DHFlatRegexArray[1];
 }
 
-
-
-
-//$dir = new DirectoryIterator(dirname("../../../mail/.caleb@eaglex_llc/cur/"));
-//foreach ($dir as $fileinfo) {
-//    if (!$fileinfo->isDot()) {
-//    	echo($fileinfo->getFilename());
-//        //var_dump($fileinfo->getFilename());
-//        echo("<br>");
-//    }
-//}
 
 $path = "../../../mail/.panther@eaglex_llc/cur/";
 foreach(scandir($path) as $file){
@@ -105,6 +115,20 @@ foreach(scandir($path) as $file){
 			$proNum = extractProNumber($emailSubject);
 			echo("PRO ".$proNum." <br>");
 			
+			// grab accepted date ARRAY 1=m   2=d    3=y
+			$acceptedDateArray = extractAcceptedDate($emailBody);
+
+			//and convert to seconds
+			$acceptedDateM = intval($acceptedDateArray[1]);
+			$acceptedDateD = intval($acceptedDateArray[2]);
+			$acceptedDateY = intval($acceptedDateArray[3]);
+
+			$acceptedDateSeconds = mktime(0, 0, 0, $acceptedDateM, $acceptedDateD, $acceptedDateY);
+
+			//then pass it to the date function
+			$acceptedDate = date('Y-m-d H:i:s', $acceptedDateSeconds);
+			echo("Accepted Date: ".$acceptedDate." <br>");
+
 			// grab deadhead rate per mile
 			$DHRPM = extractDHRPM($emailBody);
 			echo("DHRPM: ".$DHRPM." <br>");
@@ -135,6 +159,7 @@ foreach(scandir($path) as $file){
 			//Create statement to insert ProNumber, RPM, Flat, Miles, FileName, Subject
 			$insertQuery = "CALL InsertToDeadhead("
 				."'".$proNum."',"
+				."'".$acceptedDate."',"
 				.$DHRPM.","
 				.$DHFlat.","
 				.$DHMiles.","
@@ -144,7 +169,7 @@ foreach(scandir($path) as $file){
 			
 			//run it
 			if ($conn->query($insertQuery) === TRUE) {
-			  echo "New record created successfully. ".$insertQuery."<br>";
+			  echo "New record created successfully. ".$insertQuery."<br><br>";
 			} else {
 			  echo "Error: " . $sql . "<br>" . $conn->error;
 			}
@@ -163,3 +188,5 @@ foreach(scandir($path) as $file){
 
 
 ?>
+
+</html>

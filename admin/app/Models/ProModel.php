@@ -70,11 +70,10 @@ class ProModel extends Model{
     public function getrunreport($driver_id,$check_date,$truck_id)
     {
 
-        $this->join('deadhead', ' deadhead.ProNumber = pro.pro_number', 'LEFT')        
+        $this->join('deadhead', ' deadhead.ProNumber = pro.pro_number', 'LEFT') 
         $this->join('users', ' users.id = pro.driver_id', 'LEFT');    
         $this->join('truck', ' truck.id = pro.truck_id', 'LEFT');
-        $this->select('deadhead.RPM'); 
-        $this->select('deadhead.DHMiles'); 
+        $this->select('vdeadhead.dh_amount'); 
         $this->select('users.name'); 
         $this->select('users.driver_number');  
         $this->select('truck.truck_number');   
@@ -106,12 +105,13 @@ $advance_details['occupational_insurance']=isset($advance_details['occupational_
  
      foreach($runreport_details as $runreport_detail){
         
-        $deadhead= number_format(trim($runreport_detail['RPM']*trim($runreport_detail[''])),2,'.','');
+        $deadhead= number_format(trim($runreport_detail['dh_amount'])),2,'.','');
 
         $detention=  number_format(($runreport_detail['detention']*trim($runreport_detail['factorial'])),2,'.','');   
         $layover= number_format(($runreport_detail['layover']*trim($runreport_detail['factorial'])),2,'.',''); 
         $stopoff= number_format(($runreport_detail['stopoff']*trim($runreport_detail['factorial'])),2,'.','');
         $bonus= number_format(($runreport_detail['bonus']*trim($runreport_detail['factorial'])),2,'.','');
+        
         $total=
             (trim($runreport_detail['miles'])*trim($runreport_detail['rate'])*trim($runreport_detail['factorial']))
             +trim($detention)

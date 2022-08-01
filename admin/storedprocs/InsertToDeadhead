@@ -11,17 +11,18 @@ DELIMITER ;
 DELIMITER //
 
 CREATE PROCEDURE InsertToDeadhead(
-  IN pProNumber VARCHAR(50),
-  IN pRPM DECIMAL(10,2),
-  IN pFlat DECIMAL(10,2),
-  IN pDHMiles INT,
-  IN pFileName VARCHAR(255),
-  IN pSubject VARCHAR(255)
+  IN ppro_number VARCHAR(50),
+  IN paccepted_date DATETIME,
+  IN prpm DECIMAL(10,2),
+  IN pflat DECIMAL(10,2),
+  IN pdh_miles INT,
+  IN pfile_name VARCHAR(255),
+  IN psubject VARCHAR(255)
 
 )
 BEGIN
-  REPLACE INTO deadhead (ProNumber, RPM, Flat, DHMiles, FileName, Subject)
-  VALUES (pProNumber, pRPM, pFlat, pDHMiles, pFileName, pSubject);  
+  REPLACE INTO deadhead (pro_number, accepted_date, rpm, flat, dh_miles, file_name, subject)
+  VALUES (ppro_number, paccepted_date, prpm, pflat, pdh_miles, pfile_name, psubject);  
 END //
 
 DELIMITER ;
