@@ -295,9 +295,8 @@ class AdminController extends Controller
          foreach($statement_details as $statement_detail)
          {  
             $statement_detail['total']= $proModel->gettotalsofStatement($statement_detail['driver_id'],$statement_detail['check_date'],$statement_detail['truck_id']);
-            $statement_detaildata[]=$statement_detail;
-          
 
+            $statement_detaildata[]=$statement_detail;
          }
 
 
@@ -331,10 +330,6 @@ class AdminController extends Controller
          
 
         $advance_details = $advanceModel->where('driver_id', $driver_id)->where('check_date', $check_date)->where('truck_id', $truck_id)->first();
-
-
-
-
 
         if (empty($runreport_details)) {
             $session->setFlashdata('error', 'Something is missing. Please try again later.');

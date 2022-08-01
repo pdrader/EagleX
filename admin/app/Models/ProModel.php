@@ -70,7 +70,7 @@ class ProModel extends Model{
     public function getrunreport($driver_id,$check_date,$truck_id)
     {
 
-        $this->join('deadhead', ' deadhead.ProNumber = pro.pro_number', 'LEFT') 
+        $this->join('deadhead', ' deadhead.ProNumber = pro.pro_number', 'LEFT');
         $this->join('users', ' users.id = pro.driver_id', 'LEFT');    
         $this->join('truck', ' truck.id = pro.truck_id', 'LEFT');
         $this->select('vdeadhead.dh_amount'); 
@@ -105,7 +105,7 @@ $advance_details['occupational_insurance']=isset($advance_details['occupational_
  
      foreach($runreport_details as $runreport_detail){
         
-        $deadhead= number_format(trim($runreport_detail['dh_amount'])),2,'.','');
+        $deadhead= number_format((trim($runreport_detail['dh_amount'])),2,'.','');
 
         $detention=  number_format(($runreport_detail['detention']*trim($runreport_detail['factorial'])),2,'.','');   
         $layover= number_format(($runreport_detail['layover']*trim($runreport_detail['factorial'])),2,'.',''); 
