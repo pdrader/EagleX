@@ -1,17 +1,27 @@
+DELIMITER $$
+--
+-- Procedures
+--
+DROP PROCEDURE IF EXISTS `InsertToDeadhead`$$
+$$
+
+DELIMITER ;
+
+
 DELIMITER //
 
 CREATE PROCEDURE InsertToDeadhead(
-	IN pProNumber VARCHAR(50),
-	IN pRPM DECIMAL(10,2),
-	IN pFlat DECIMAL(10,2),
-	IN pMiles INT,
-	IN pFileName VARCHAR(255),
-	IN pSubject VARCHAR(255)
+  IN pProNumber VARCHAR(50),
+  IN pRPM DECIMAL(10,2),
+  IN pFlat DECIMAL(10,2),
+  IN pDHMiles INT,
+  IN pFileName VARCHAR(255),
+  IN pSubject VARCHAR(255)
 
 )
 BEGIN
-	REPLACE INTO deadhead (ProNumber, RPM, Flat, Miles, FileName, Subject)
-	VALUES (pProNumber, pRPM, pFlat, pMiles, pFileName, pSubject);	
+  REPLACE INTO deadhead (ProNumber, RPM, Flat, DHMiles, FileName, Subject)
+  VALUES (pProNumber, pRPM, pFlat, pDHMiles, pFileName, pSubject);  
 END //
 
 DELIMITER ;

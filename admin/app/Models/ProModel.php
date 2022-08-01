@@ -70,22 +70,24 @@ class ProModel extends Model{
     public function getrunreport($driver_id,$check_date,$truck_id)
     {
 
-        
+        $this->join('deadhead', ' deadhead.ProNumber = pro.pro_number', 'LEFT')        
         $this->join('users', ' users.id = pro.driver_id', 'LEFT');    
         $this->join('truck', ' truck.id = pro.truck_id', 'LEFT');
-    $this->select('users.name'); 
-    $this->select('users.driver_number');  
-    $this->select('truck.truck_number');   
-    $this->select('pro.*');
-    $this->orderBy('pro.id');
-    $this->where('pro.driver_id',$driver_id);
-    $this->where('pro.check_date',$check_date);
-    $this->where('pro.truck_id',$truck_id);
-   // $this->groupBy(array('pro.driver_id','pro.check_date','pro.truck_id'));
-    $result = $this->findAll();
+        $this->select('deadhead.RPM'); 
+        $this->select('deadhead.DHMiles'); 
+        $this->select('users.name'); 
+        $this->select('users.driver_number');  
+        $this->select('truck.truck_number');   
+        $this->select('pro.*');
+        $this->orderBy('pro.id');
+        $this->where('pro.driver_id',$driver_id);
+        $this->where('pro.check_date',$check_date);
+        $this->where('pro.truck_id',$truck_id);
+        // $this->groupBy(array('pro.driver_id','pro.check_date','pro.truck_id'));
+        $result = $this->findAll();
 
- //echo $this->db->getLastQuery();
- //exit;
+         //echo $this->db->getLastQuery();
+         //exit;
 
     return $result;
     }
@@ -104,11 +106,20 @@ $advance_details['occupational_insurance']=isset($advance_details['occupational_
  
      foreach($runreport_details as $runreport_detail){
         
+        $deadhead= number_format(trim($runreport_detail['RPM']*trim($runreport_detail[''])),2,'.','');
+
         $detention=  number_format(($runreport_detail['detention']*trim($runreport_detail['factorial'])),2,'.','');   
         $layover= number_format(($runreport_detail['layover']*trim($runreport_detail['factorial'])),2,'.',''); 
         $stopoff= number_format(($runreport_detail['stopoff']*trim($runreport_detail['factorial'])),2,'.','');
         $bonus= number_format(($runreport_detail['bonus']*trim($runreport_detail['factorial'])),2,'.','');
-        $total=(trim($runreport_detail['miles'])*trim($runreport_detail['rate'])*trim($runreport_detail['factorial']))+trim($detention)+trim($stopoff)+trim($layover)+trim($runreport_detail['handload'])+trim($runreport_detail['deadhead'])+trim($bonus);
+        $total=
+            (trim($runreport_detail['miles'])*trim($runreport_detail['rate'])*trim($runreport_detail['factorial']))
+            +trim($detention)
+            +trim($stopoff)
+            +trim($layover)
+            +trim($runreport_detail['handload'])
+            +trim($deadhead)
+            +trim($bonus);
         $payments_subtotal[]=trim($total);
 
      }
@@ -141,29 +152,29 @@ $advance_details['occupational_insurance']=isset($advance_details['occupational_
  
 
         $startTime = strtotime($minmax_date['min_date']);
-$endTime = strtotime($minmax_date['max_date']);
-$today = strtotime('today GMT');
+        $endTime = strtotime($minmax_date['max_date']);
+        $today = strtotime('today GMT');
 
-if($minmax_date['min_date']=="")
-{
-    $startTime= strtotime('monday this week'); 
-}
+        if($minmax_date['min_date']=="")
+        {
+            $startTime= strtotime('monday this week'); 
+        }
 
 
-if($endTime < $today)
-{
-   $endTime= strtotime('next monday');
-}
+        if($endTime < $today)
+        {
+           $endTime= strtotime('next monday');
+        }
 
-$weeks = array();
+        $weeks = array();
 
-while ($startTime <= $endTime) {  
-    $weeks[date('W', $startTime)] =  $this->getStartAndEndDate(date('W', $startTime),date('Y', $startTime)); 
-    $startTime += strtotime('+1 week', 0);
-    }
-    arsort($weeks);
-    return ($weeks);
-}
+        while ($startTime <= $endTime) {  
+            $weeks[date('W', $startTime)] =  $this->getStartAndEndDate(date('W', $startTime),date('Y', $startTime)); 
+            $startTime += strtotime('+1 week', 0);
+            }
+            arsort($weeks);
+            return ($weeks);
+        }
     
 
 }
