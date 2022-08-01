@@ -18,3 +18,4 @@ CHANGELOG.md
 *.xls
 *.log
 
+admin/emailparser/error_log
