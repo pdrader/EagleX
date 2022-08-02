@@ -15,7 +15,7 @@ SELECT
 	f.fuel_date,
 
 	CASE WHEN f.fuelrates_id IS NULL THEN 0.54 ELSE f.fuel_rate END as 'fuel_rate',
-	(d.dh_miles * d.rpm) - (d.dh_miles * (CASE WHEN f.fuelrates_id IS NULL THEN 0.54 ELSE f.fuel_rate END)) as 'dh_amount'
+	CAST((d.dh_miles * d.rpm) - (d.dh_miles * (CASE WHEN f.fuelrates_id IS NULL THEN 0.54 ELSE f.fuel_rate END)) AS DECIMAL(10,2)) as 'dh_amount'
 FROM
 	deadhead d
 	LEFT JOIN 

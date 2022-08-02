@@ -105,7 +105,7 @@ $advance_details['occupational_insurance']=isset($advance_details['occupational_
  
      foreach($runreport_details as $runreport_detail){
         
-        $deadhead= number_format((trim($runreport_detail['dh_amount'])),2,'.','');
+        $deadhead= number_format((trim($runreport_detail['dh_amount']*1)),2,'.','');
 
         $detention=  number_format(($runreport_detail['detention']*trim($runreport_detail['factorial'])),2,'.','');   
         $layover= number_format(($runreport_detail['layover']*trim($runreport_detail['factorial'])),2,'.',''); 

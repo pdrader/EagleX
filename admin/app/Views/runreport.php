@@ -17,7 +17,7 @@
       <input type="hidden" name="check_date" value="<?php echo $check_date; ?>">
       <input type="hidden" name="truck_id" value="<?php echo $truck_id; ?>">
 
-
+      <!--<br><br>testinglol.<?php var_dump($runreport_details);?><br><br>-->
       <h2 class="text-center"><b>Eagle Expedited, LLC</b></h2>
       <h5 class="text-center"><b>Settlement Statement</b></h5>
       <p class="text-center"><b>Date:</b> <?php  echo date("m/d/Y", strtotime($runreport_details[0]['check_date']));   ?> </p>
@@ -55,19 +55,19 @@
   <table class="table table-bordered run-report-table">
   <thead>
     <tr>
-     
+     <!-- original total 670 --> 
       <th scope="col" width="120px">Pro #</th>
-      <th scope="col" width="75px" >RPM</th>
+      <th scope="col" width="50px" >RPM</th>
       <th scope="col" width="75px">Miles</th>
       <th scope="col" width="75px">Linehaul</th>      
       <th scope="col" width="75px">Factorial</th>
-      <th scope="col">Detention</th>
-      <th scope="col">Layover</th>
-      <th scope="col">Stopoff</th>
+      <th scope="col" width="120px">Detention</th>
+      <th scope="col" width="120px">Layover</th>
+      <th scope="col" width="120px">Stopoff</th>
       <th scope="col" width="50px">Handload</th>
-      <th scope="col" width="50px">Deadhead</th>
+      <th scope="col" width="150px">Deadhead</th>
       <th scope="col">Bonus</th>
-      <th scope="col"  width="75px">Pro Total</th>
+      <th scope="col"  width="100px">Pro Total</th>
       <th scope="col" width="75px"> Action</th>
   
 
@@ -153,9 +153,16 @@ $<?php echo number_format($runreport_detail['rate']*$runreport_detail['miles'],2
         <input type="text" class="form-control only-decimal"  name="payment[<?php echo $runreport_detail['id']; ?>][handload]"  min="0" value="<?php  echo trim($runreport_detail['handload']); ?>">
       </td>
       <td>
- 
+        <div class="payment-20-text">
+
+        $<?php  $deadhead= number_format(($runreport_detail['dh_amount']*trim($runreport_detail['factorial'])),2,'.',''); 
+           echo number_format($deadhead,2);
+     
+        
+        ?>
+        </div>
       
-        <input type="text" class="form-control only-decimal"  name="payment[<?php echo $runreport_detail['id']; ?>][deadhead]"  min="0" value="<?php  echo trim($runreport_detail['deadhead']); ?>">
+        <input type="text" class="form-control only-decimal payment-20-input"  name="payment[<?php echo $runreport_detail['id']; ?>][deadhead]"  min="0" value="<?php  echo trim($runreport_detail['dh_amount']); ?>">
       </td>
       <td>
       <div class="payment-20-text">
@@ -174,7 +181,7 @@ $<?php echo number_format($runreport_detail['rate']*$runreport_detail['miles'],2
     </td>
       <td class="text-end">$<?php
       
-       $total=(trim($runreport_detail['miles'])*trim($runreport_detail['rate'])*trim($runreport_detail['factorial']))+trim($detention)+trim($stopoff)+trim($layover)+trim($runreport_detail['handload'])+trim($runreport_detail['deadhead'])+trim($bonus);
+       $total=(trim($runreport_detail['miles'])*trim($runreport_detail['rate'])*trim($runreport_detail['factorial']))+trim($detention)+trim($stopoff)+trim($layover)+trim($runreport_detail['handload'])+trim($deadhead)+trim($bonus);
       echo number_format($total,2);
       $payments_subtotal[]=trim($total);
       ?></td>
