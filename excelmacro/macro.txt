@@ -1,0 +1,257 @@
+Sub Eagle1()
+'Section 1 - Enables macro and removes unneeded columns
+    'Remove protected view
+    If Application.ProtectedViewWindows.Count > 0 Then
+        Application.ActiveProtectedViewWindow.Edit
+    End If
+'Section 1b - new section to identify new drivers
+    'Drivers for use with codriver logic
+    Dim DriverArray(0 To 4) As String
+        DriverArray(0) = "ARRON HINDS"
+        DriverArray(1) = "HARRY QUINN"
+        DriverArray(2) = "DWAYNE STANDRIDGE"
+        DriverArray(3) = "JAMES JUSTIN"
+        DriverArray(4) = "STEPHEN HELM"
+    'Codrivers match the above drivers
+    Dim CoDriverArray(0 To 4) As String
+        CoDriverArray(0) = "MARISSA EIDE"
+        CoDriverArray(1) = "DIANE QUINN"
+        CoDriverArray(2) = "AMY STANDRIDGE"
+        CoDriverArray(3) = "CHERYL LEWIS"
+        CoDriverArray(4) = "GWENDOLYN SHEPPERSON"
+    Cells.Select
+    For X = Selection.rows.Count To 1 Step -1
+        If Cells(X, 2).Value = "WASDOVICH" Then
+            Cells(X, 2).EntireRow.Delete
+        End If
+    Next X
+'    Cells.Select
+'    For X = Selection.Rows.Count To 1 Step -1
+'        If Cells(X, 2).Value = "WASDOVICH" Then
+'            Cells(X, 2).EntireRow.Delete
+'        End If
+'    Next X
+'
+    Dim baddrivers(0 To 3) As String
+      baddrivers(0) = "WASDOVICH"
+      baddrivers(1) = "CARR/DRIVER"
+      baddrivers(2) = ""
+      baddrivers(3) = " "
+    Worksheets("Deductions").Activate
+    Dim rows, drivers As Integer
+    rows = ActiveSheet.UsedRange.rows.Count
+    drivers = 1
+    Dim DeductionsArray() As String
+    For X = 1 To rows
+        If Not (IsInArray(Cells(X, 2).Value, baddrivers)) Then
+            If Not (IsInArray(Cells(X, 2).Value, DeductionsArray)) Then
+             ReDim Preserve DeductionsArray(0 To drivers)
+               DeductionsArray(drivers) = Cells(X, 2).Value
+               drivers = drivers + 1
+            End If
+            'X = X + 1
+        End If
+    Next
+'
+'Compare that new array with driver / codriver arrays
+    Dim newdrivers As Integer
+        newdrivers = 0
+        For i = 1 To UBound(DeductionsArray)
+           If Not (IsInArray(DeductionsArray(i), DriverArray)) Then
+             If Not (IsInArray(DeductionsArray(i), CoDriverArray)) Then
+                MsgBox ("New driver " & DeductionsArray(i) & " needs to be added to Macro")
+                newdrivers = 1
+            End If
+           End If
+        Next i
+           If newdrivers <> 0 Then
+              MsgBox ("Contact your IT team to add new drivers before proceeding")
+              Exit Sub
+           End If
+'if a new driver / co name is found issue warning message
+'break process
+    'Delete everything except master sheet
+    Dim xWs As Worksheet
+    Application.ScreenUpdating = False
+    Application.DisplayAlerts = False
+    For Each xWs In Application.ActiveWorkbook.Worksheets
+        If xWs.Name <> "MASTER SHEET" Then
+            xWs.Delete
+        End If
+    Next
+    Application.DisplayAlerts = True
+    Application.ScreenUpdating = True
+    Columns("B:B").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("F:F").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("G:G").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("H:H").Select
+    Selection.Delete Shift:=xlToLeft
+    Columns("J:J").Select
+    Selection.Delete Shift:=x1ToLeft
+    Columns("K:Z").Select
+    Selection.Delete Shift:=xlToLeft
+    rows("1:2").Select
+    Selection.Delete Shift:=xlUp
+'Section 2 - Removes WASDOVICH unnecessary rows
+    Cells.Select
+    For X = Selection.rows.Count To 1 Step -1
+        If Cells(X, 2).Value = "WASDOVICH" Then
+            Cells(X, 2).EntireRow.Delete
+        End If
+    Next X
+'Section 2b - Create Driver Array
+    'Email array
+    Dim EmailArray(11, 2) As String
+        EmailArray(0, 0) = "ARRON HINDS"
+        EmailArray(0, 1) = "arronhinds@yahoo.com"
+        EmailArray(1, 0) = "HARRY QUINN"
+        EmailArray(1, 1) = "d_angel62001@yahoo.com"
+        EmailArray(2, 0) = "DWAYNE STANDRIDGE"
+        EmailArray(2, 1) = "BLISSWARRIOR@YAHOO.COM"
+        EmailArray(3, 0) = "JAMES JUSTIN"
+        EmailArray(3, 1) = "jmjustin@comcast.net"
+        EmailArray(4, 0) = "STEPHEN HELM"
+        EmailArray(4, 1) = "STERLINGRAINEENTERPRISES@GMAIL.COM"
+        EmailArray(5, 0) = "MARISSA EIDE"
+        EmailArray(5, 1) = "marissahinds@yahoo.com"
+        EmailArray(6, 0) = "DIANE QUINN"
+        EmailArray(6, 1) = "d_angel62001@yahoo.com"
+        EmailArray(7, 0) = "AMY STANDRIDGE"
+        EmailArray(7, 1) = "SHAESHAE112078@GMAIL.COM"
+        EmailArray(8, 0) = "CHERYL LEWIS"
+        EmailArray(8, 1) = "cheriville26@gmail.com"
+        EmailArray(9, 0) = "GWENDOLYN SHEPPERSON"
+        EmailArray(9, 1) = "STERLINGRAINEENTERPRISES@GMAIL.COM"
+        EmailArray(10, 0) = "GARY RICKS"
+        EmailArray(10, 1) = "gricks71@yahoo.com"
+    'This array contains drivers that get 0.4 factor
+    Dim FactorVariant(0 To 0) As String
+        FactorVariant(0) = "GARY RICKS"
+'Section 3 - Insert copied rows of primary driver
+    Cells.Select
+    For X = Selection.rows.Count To 1 Step -1
+        'myCell is a bookmark that holds location prior to starting a loop
+        Dim myCell
+            Set myCell = ActiveCell
+        'ActiveCell is A1 now
+        While ActiveCell.Value <> ""
+            rows(ActiveCell.Row).Select
+            If (IsInArray(ActiveCell.Offset(0, 1).Text, DriverArray)) Then
+                Selection.Copy
+                Selection.Insert Shift:=xlDown
+'Section 4 - Replace primary driver name with co-driver name on copied row
+                For i = LBound(DriverArray, 1) To UBound(DriverArray, 1)
+                    If InStr(DriverArray(i), Cells(Selection.Row, 2).Value) > 0 Then
+                        Cells(Selection.Row, 2).Value = CoDriverArray(i)
+                    End If
+                Next
+            End If
+            myCell.Offset(1, 0).Select
+            Set myCell = ActiveCell
+        Wend
+    Next X
+'Section 5 - Add column containing pay date with header of PAY DATE and mm/dd/yyyy data
+'            Also overwrite the headers to match the example given to Dipal
+    Range("B1").Select
+    ActiveCell.Value = "DRIVER"
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = "TRUCK #"
+    Range("K1").Select
+    ActiveCell.Value = "PAY DATE"
+    Range("L1").Select
+    ActiveCell.Value = "EMAIL"
+    Range("M1").Select
+    ActiveCell.Value = "FACTOR"
+    Dim sht As Worksheet
+    Dim LastRow As Integer
+        Set sht = ActiveSheet
+        LastRow = sht.Range("A1").CurrentRegion.rows.Count
+    Call datetest(LastRow)
+'Section 6 - Add emails to spreadsheet
+    Range("B2").Select
+    While ActiveCell.Value <> ""
+        For i = 0 To UBound(EmailArray, 1)
+            If InStr(EmailArray(i, 0), Cells(Selection.Row, 2).Value) > 0 Then
+                Cells(Selection.Row, 12).Value = EmailArray(i, 1)
+            End If
+        Next
+        ActiveCell.Offset(1, 0).Select
+    Wend
+'Section 7 - Check for .2 or .4 factor
+    Range("B2").Select
+    While ActiveCell.Value <> ""
+        For Each i In FactorVariant
+            If InStr(i, ActiveCell.Value) > 0 Then
+                Cells(ActiveCell.Row, 13).Value = "0.4"
+            Else
+                Cells(ActiveCell.Row, 13).Value = "0.2"
+            End If
+        Next i
+        ActiveCell.Offset(1, 0).Select
+    Wend
+'End of Process'
+    Range("A1").Select
+    Application.CutCopyMode = False
+End Sub
+'Returns True if stringToBeFound is in the array
+Private Function IsInArray(stringToBeFound As String, arr As Variant) As Boolean
+    IsInArray = False
+    On Error GoTo ErrorHandle
+    Dim i
+    For i = LBound(arr) To UBound(arr)
+        If arr(i) = stringToBeFound Then
+            IsInArray = True
+            Exit Function
+        End If
+    Next i
+    IsInArray = False
+ErrorHandle:
+        'nothing lol
+End Function
+'If user enters a date, fill the Pay Date column
+Private Sub datetest(LastRow As Integer)
+   Dim chkdt As String
+    chkdt = Application.InputBox("Use MM/DD/YYYY format:", Title:="Enter Deposit Date for Drivers", Default:="MM/DD/YYYY")
+    If (IsDate(chkdt)) Then
+        Call Pastedate(CDate(chkdt), LastRow)
+    Else
+        MsgBox ("Not a date, try again")
+        Call datetest(LastRow)
+    End If
+End Sub
+'Fill the Pay Date column with user's entry
+'Todo: replace "K2" with a variable
+'Todo: Make this a private sub
+Private Sub Pastedate(chkdt As Date, LastRow As Integer)
+    Range("K2").Select
+For i = 2 To LastRow
+          ActiveCell.Value = chkdt
+       ActiveCell.Offset(1, 0).Select
+Next i
+End Sub
+Private Function mergeArrays(ByVal arr1 As Variant, ByVal arr2 As Variant) As Variant
+    Dim holdarr As Variant
+    Dim ub1 As Long
+    Dim ub2 As Long
+    Dim bi As Long
+    Dim i As Long
+    Dim newind As Long
+        ub1 = UBound(arr1) + 1
+        ub2 = UBound(arr2) + 1
+        bi = IIf(ub1 >= ub2, ub1, ub2)
+        ReDim holdarr(ub1 + ub2 - 1)
+        For i = 0 To bi
+            If i < ub1 Then
+                holdarr(newind) = arr1(i)
+                newind = newind + 1
+            End If
+            If i < ub2 Then
+                holdarr(newind) = arr2(i)
+                newind = newind + 1
+            End If
+        Next i
+        mergeArrays = holdarr
+End Function
