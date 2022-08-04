@@ -1,0 +1,9 @@
+/*    query to show deadhead on existing pros     */
+SELECT DISTINCT
+	u.name,
+    p.check_date,
+    p.pro_number,
+    d.dh_amount
+FROM vdeadhead d
+JOIN pro p ON p.pro_number = d.pro_number
+JOIN users u on u.id = p.driver_id
