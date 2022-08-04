@@ -49,6 +49,8 @@ class ProModel extends Model{
    $this->db->getLastQuery();
  //exit;
 
+   //echo($this->db->getLastQuery());
+
     return $result;
     }
     public function getpaystatementfordriver($driver_id)
@@ -61,8 +63,8 @@ class ProModel extends Model{
     $this->groupBy(array('pro.driver_id','pro.check_date','pro.truck_id'));
     $result = $this->findAll();
 
- //echo $this->db->getLastQuery();
- //exit;
+     // echo $this->db->getLastQuery();
+     //exit;
 
     return $result;
     }
@@ -73,6 +75,7 @@ class ProModel extends Model{
         $this->join('vdeadhead', ' vdeadhead.pro_number = pro.pro_number', 'LEFT');
         $this->join('users', ' users.id = pro.driver_id', 'LEFT');    
         $this->join('truck', ' truck.id = pro.truck_id', 'LEFT');
+        $this->distinct(); // TODO: this is a temporary solution. problem is join to the vdeadhead view, which can not differentiate between driver and codriver at this time. caleb 2022-08-03
         $this->select('vdeadhead.dh_amount'); 
         $this->select('users.name'); 
         $this->select('users.driver_number');  
@@ -82,7 +85,10 @@ class ProModel extends Model{
         $this->where('pro.driver_id',$driver_id);
         $this->where('pro.check_date',$check_date);
         $this->where('pro.truck_id',$truck_id);
-        // $this->groupBy(array('pro.driver_id','pro.check_date','pro.truck_id'));
+        
+        //$this->groupBy(array('pro.driver_id','pro.check_date','pro.truck_id'));
+        
+
         $result = $this->findAll();
 
          //echo $this->db->getLastQuery();

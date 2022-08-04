@@ -7,6 +7,18 @@
 //ini_set('display_startup_errors', 1);
 //error_reporting(E_ALL);
 
+//custom "warning handler" curtesy of
+//https://stackoverflow.com/questions/1241728/can-i-try-catch-a-warning
+set_error_handler("warning_handler");
+
+function warning_handler($errno, $errstr) { 
+	echo "Warning/Error! #";
+	echo htmlspecialchars($errno).": ".htmlspecialchars($errstr)."<br>";
+	echo "Current directory: '".htmlspecialchars(getcwd())."'<br>";
+}
+
+//restore_error_handler();
+
 
 //include("PlancakeEmailParser.php");
 //begin include.
@@ -394,21 +406,6 @@ class PlancakeEmailParser {
 
 
 
-	//$homeDir = "/home/gvnvf61ftx5b";
-
-//copy from email dir 
-//current path is /home/gvnvf61ftx5b/public_html/admin/emailparser
-//copy("../../../mail/.caleb@eaglex_llc/cur/email:2,S","testmove/email2s");
-
-//get current file path
-//echo(getcwd()); // /home/gvnvf61ftx5b/public_html/admin/emailparser
-
-//path to email on server:
-// /home/gvnvf61ftx5b/mail/.caleb@eaglex_llc/cur/email:2,S
-
-// relative position on server:
-// ../../../mail/.caleb@eaglex_llc/cur/email:2,S
-
 
 function isDeadheadEmail($string){
 	if(str_contains($string, "Receipt for Panther PRO")){
@@ -467,7 +464,7 @@ function extractDHFlat($string){
 }
 
 
-$path = "../../../mail/.panther@eaglex_llc/cur/";
+$path = __DIR__."/../../../mail/.panther@eaglex_llc/cur/";
 foreach(scandir($path) as $file){
 
 	if($file[0] == '.'){continue;}
@@ -475,6 +472,7 @@ foreach(scandir($path) as $file){
 	if( is_file($path.$file) ){
 		
 		$emailPath = $path.$file;
+
 		$emailParser = new PlancakeEmailParser(file_get_contents($emailPath));
 
 		// You can use some predefined methods to retrieve headers...
