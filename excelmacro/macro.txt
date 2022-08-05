@@ -19,6 +19,11 @@ Sub Eagle1()
         CoDriverArray(2) = "AMY STANDRIDGE"
         CoDriverArray(3) = "CHERYL LEWIS"
         CoDriverArray(4) = "GWENDOLYN SHEPPERSON"
+        
+     'This array contains drivers that get 0.4 factor
+    Dim SoloDriverArray(0 To 0) As String
+        SoloDriverArray(0) = "GARY RICKS"
+        
     Cells.Select
     For X = Selection.rows.Count To 1 Step -1
         If Cells(X, 2).Value = "WASDOVICH" Then
@@ -59,8 +64,10 @@ Sub Eagle1()
         For i = 1 To UBound(DeductionsArray)
            If Not (IsInArray(DeductionsArray(i), DriverArray)) Then
              If Not (IsInArray(DeductionsArray(i), CoDriverArray)) Then
+               If Not (IsInArray(DeductionsArray(i), SoloDriverArray)) Then
                 MsgBox ("New driver " & DeductionsArray(i) & " needs to be added to Macro")
                 newdrivers = 1
+                End If
             End If
            End If
         Next i
@@ -127,9 +134,7 @@ Sub Eagle1()
         EmailArray(9, 1) = "STERLINGRAINEENTERPRISES@GMAIL.COM"
         EmailArray(10, 0) = "GARY RICKS"
         EmailArray(10, 1) = "gricks71@yahoo.com"
-    'This array contains drivers that get 0.4 factor
-    Dim FactorVariant(0 To 0) As String
-        FactorVariant(0) = "GARY RICKS"
+
 'Section 3 - Insert copied rows of primary driver
     Cells.Select
     For X = Selection.rows.Count To 1 Step -1
@@ -183,7 +188,7 @@ Sub Eagle1()
 'Section 7 - Check for .2 or .4 factor
     Range("B2").Select
     While ActiveCell.Value <> ""
-        For Each i In FactorVariant
+        For Each i In SoloDriverArray
             If InStr(i, ActiveCell.Value) > 0 Then
                 Cells(ActiveCell.Row, 13).Value = "0.4"
             Else
